@@ -249,5 +249,6 @@ CKEDITOR_5_CONFIGS = {
             'reversed': 'true',
         }
     }
-
 }
+
+AUTH_USER_MODEL = 'accounts.User'
