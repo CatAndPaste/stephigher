@@ -23,13 +23,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-from errors.views import ErrorHandler
+from app.errors.views import ErrorHandler
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     # path('robots.txt', TemplateView.as_view(template_name="other/robots.txt", content_type="text/plain")),
-    # path('', include('accounts.urls')),
+    path('', include('accounts.urls')),
     path('', include('pages.urls')),
     path('', include('errors.urls')),
     path('', include('blog.urls')),

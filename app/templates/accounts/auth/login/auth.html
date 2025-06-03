@@ -1,0 +1,99 @@
+{% extends 'base/base_auth.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="authorization">
+        <div class="container">
+            <div class="reglog__wrapper">
+                <div class="reglog">
+                    <div class="reglog__left">
+                        <div class="reglog__left-title">Войдите и поделитесь своими творениями!</div>
+                    </div>
+
+                    <div class="reglog__right__wrapper">
+                        <div class="reglog__right">
+                            <h1 class="reglog__right-title">Добро пожаловать!</h1>
+
+                            <form class="reglog__right-form" method="POST">
+                                {% csrf_token %}
+                                <div class="reglog__right-form-input__wrapper">
+                                    {% for field in form %}
+                                        {% if field.name != 'captcha' %}
+                                            {% if "username" != field.name %}
+                                                <div class="reglog__right-form-label__wrapper">
+                                                    <label for="">Пароль</label>
+                                                </div>
+                                            {% else %}
+                                                <div class="reglog__right-form-label__wrapper">
+                                                    <label for="">Введите почту</label>
+                                                </div>
+                                            {% endif %}
+
+
+                                            <div class="reglog__right-form-input-eye__wrapper">
+                                                {{ field }}
+
+                                                {% if "username" != field.name %}
+                                                    <button class="reglog__right-form-input-eye show-eye"
+                                                            onclick="return show_hide_password(document.getElementById('{{ field.id_for_label }}'), this);">
+                                                        <img src="{% static 'images/reg-auth/eye.svg' %}" alt="">
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+                                        {% if field.name == 'captcha' %}
+                                            <div class="reglog__right-form-captcha">
+                                                {{ field }}
+                                            </div>
+                                        {% endif %}
+
+
+                                        {% if form.errors %}
+                                            {% for key, value in form.errors.items %}
+                                                {% if key == field.name %}
+                                                    {% for val in value %}
+                                                        <div class="reglog__right-form-error">{{ val }}</div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for key, value in form.errors.items %}
+                                        {% if key == "__all__" %}
+                                            {% for val in value %}
+                                                <div class="reglog__right-form-error">{{ val }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                {% if enable_registration %}
+                                <div class="reglog__right-form-forgot_password">
+                                    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                                </div>
+                                {% endif %}
+                                <div class="reglog__right-form-button__wrapper">
+                                    <button class="reglog__right-form-button" type="submit">Войти</button>
+                                </div>
+                            </form>
+                        </div>
+                        {% if enable_registration %}
+                        <div class="reglog__right-subblock">
+                            <div class="reglog__right-subblock-text">
+                                Нет аккаунта? <a href="{% url 'registration_step1' %}">Зарегистрируйтесь</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_script %}
+    <script src="{% static 'js/other/show_hide_password.js' %}"></script>
+{% endblock %}
