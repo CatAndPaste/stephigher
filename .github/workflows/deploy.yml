@@ -26,30 +26,26 @@ jobs:
       - name: Add known hosts
         run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
-
-      - name: Install project requirements
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Updating project on server
+      - name: Sync Code
         run: |
           rsync -az --delete \
-            --exclude '.env' \
+            --exclude 'app/media' \
             --exclude '.git/' \
             --exclude '.github/' \
             -e "ssh" ./ ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}
+          
+      - name: Add new media files
+        run: |
+          rsync -az --ignore-existing \
+            -e "ssh" app/media/ \
+            ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}/app/media/
 
       - name: Django Post
         env:
           SSH_HOST: ${{ env.SSH_HOST }}
           SSH_USER: ${{ env.SSH_USER }}
         run: |
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST bash -s <<EOF
+          ssh -o StrictHostKeyChecking=yes $SSH_USER@$SSH_HOST bash -s <<EOF
             set -euo pipefail
             cd ${{ env.REMOTE_DIR }}
   
