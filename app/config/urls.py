@@ -23,7 +23,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
-from app.errors.views import ErrorHandler
+from errors.views import ErrorHandler
 
 urlpatterns = [
     path('admin-panel/', admin.site.urls),
