@@ -1,0 +1,18 @@
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block seo_title %}{{ default_title|default:"StepHigher" }}{% endblock %}</title>
+    <meta name="description" content="{% block seo_description %}{{ default_description|default:'' }}{% endblock %}">
+    <meta name="keywords" content="{% block seo_keywords %}{{ default_keywords|default:'' }}{% endblock %}">
+
+
+    <!-- СТИЛИ -->
+    {#    <link type="text/css" rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">#}
+    {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>#}
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
+
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>

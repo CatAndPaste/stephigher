@@ -1,0 +1,72 @@
+{% load static %}
+
+<header class="header">
+    <div class="container header__container">
+        <a href="#" class="header__logo-link">
+            <img src="{% static 'images/logo.svg' %}" alt="logo" class="header__logo-img">
+        </a>
+
+        <nav class="header__menu">
+            <ul class="header__menu-items">
+                <li class="header__menu-item">
+                    <a href="#" class="header__menu-item-link">Главная</a>
+                </li>
+                <li class="header__menu-item">
+                    <a href="#" class="header__menu-item-link">Статьи</a>
+                </li>
+                <li class="header__menu-item">
+                    <a href="#" class="header__menu-item-link">Новости</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header__btn-block">
+            <a href="#" class="header__btn-left">
+                <img src="{% static 'images/Iconly.svg' %}" alt="">
+                Зарегистрироваться
+            </a>
+            <a href="#" class="header__btn-right">
+                <img src="{% static 'images/Iconly (1).svg' %}" alt="">
+                Войти
+            </a>
+        </div>
+
+        <!-- Мобильное меню -->
+        <div class="header__mobile">
+            <!-- Кнопка бургер меню -->
+            <button class="header__burger" aria-label="Открыть меню">
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+            </button>
+
+            <!-- Мобильное меню (скрыто по умолчанию) -->
+            <div class="header__mobile-menu">
+                <nav class="header__mobile-nav">
+                    <ul class="header__mobile-items">
+                        <li class="header__mobile-item">
+                            <a href="#" class="header__mobile-link">Главная</a>
+                        </li>
+                        <li class="header__mobile-item">
+                            <a href="#" class="header__mobile-link">Статьи</a>
+                        </li>
+                        <li class="header__mobile-item">
+                            <a href="#" class="header__mobile-link">Новости</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="header__mobile-buttons">
+                    <a href="#" class="header__mobile-btn header__mobile-btn--reg">
+                        <img src="/images/Iconly.svg" alt="">
+                        Зарегистрироваться
+                    </a>
+                    <a href="#" class="header__mobile-btn header__mobile-btn--login">
+                        <img src="/images/Iconly (1).svg" alt="">
+                        Войти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

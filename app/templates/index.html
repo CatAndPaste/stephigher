@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="hero-block">
+        <div class="container hero-block__container">
+            <h1 class="hero-block__title">
+                Выживайте, стройте, исследуйте – ваш плот ждёт!
+            </h1>
+
+            <p class="hero-block__description">
+                Этот сайт – ваш надёжный помощник в игре Raft! Здесь вы найдёте последние новости, полезные гайды.
+                Присоединяйтесь к сообществу, обсуждайте стратегии и делитесь своими достижениями!
+            </p>
+
+            <a href="#" class="btn-card btn-card--orange hero-block__btn">
+                <img src="{% static 'images/Frame (1).svg' %}" alt="">
+                Узнать больше
+            </a>
+
+            <div class="hero-block__cards">
+                {% for post in posts %}
+                    <div class="card hero-block__card item{{ forloop.counter }}">
+                        <div class="card-img-block hero-block__card-img-block">
+                            <img src="{{ post.image.url }}" alt=""
+                                 class="card-img hero-block__card-img">
+                            <button class="card-btn-like hero-block__card-btn-like"></button>
+                        </div>
+
+                        <div class="card-content hero-block__card-content">
+                            <div class="card-tags hero-block__card-tags">
+                                {% for tag in post.tags.all %}
+                                    <a href="#" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                                {% endfor %}
+
+                            </div>
+
+                            <h3 class="card-title hero-block__card-title">
+                                {{ post.title }}
+                            </h3>
+
+                            <p class="card-descr hero-block__card-descr">
+                                {{ post.short_description }}
+                            </p>
+
+                            <a href="#" class="btn-card btn-card--orange hero-block__card-link">
+                                <img src="{% static 'images/Frame (1).svg' %}" alt="">
+                                Читать подробнее
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="latest-news">
+        <div class="container latest-news__container">
+            <h2 class="latest-news__title">
+                Последние новости
+            </h2>
+
+            <div class="latest-news__cards">
+                {% for latest_new in latest_news %}
+                    <div class="card latest-news__card item{{ forloop.counter }}">
+                        <div class="card-img-block latest-news__card-img-block">
+                            <img src="{{ latest_new.image.url }}" alt="" class="card-img latest-news__card-img">
+                        </div>
+
+                        <div class="card-content latest-news__card-content">
+                            <h3 class="card-title latest-news__card-title">
+                                {{ latest_new.title }}
+                            </h3>
+
+                            <p class="card-descr latest-news__card-descr">
+                                {{ latest_new.short_description }}
+                            </p>
+
+                            <a href="#" class="btn-card btn-card--blue latest-news__card-link">
+                                <img src="{% static 'images/Frame (2)-blue.svg' %}" alt="">
+                                Читать подробнее
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="promo-banner">
+        <div class="container promo-banner__container">
+            <img src="{% static 'images/Frame 1707480226.png' %}" alt="Raft - The Final Chapter"
+                 class="promo-banner__image"/>
+        </div>
+    </section>
+
+    <section class="popular-articles">
+        <div class="container popular-articles__container">
+            <div class="popular-articles__header">
+                <h2 class="popular-articles__title">Популярные статьи</h2>
+                <a href="#" class="popular-articles__link">Смотреть все</a>
+            </div>
+
+            <div class="popular-articles__cards">
+                {% for popular_post in popular_posts %}
+                    <div class="card popular-articles__card item{{ forloop.counter }}">
+                        <div class="card-img-block hero-block__card-img-block">
+                            <img src="{{ popular_post.image.url }}" alt="" class="card-img hero-block__card-img">
+                            <button class="card-btn-like hero-block__card-btn-like"></button>
+                        </div>
+
+                        <div class="card-content hero-block__card-content">
+                            <div class="card-tags hero-block__card-tags">
+                                {% for tag in popular_post.tags.all %}
+                                    <a href="#" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+
+                            <h3 class="card-title hero-block__card-title">
+                                {{ popular_post.title }}
+                            </h3>
+
+                            <p class="card-descr hero-block__card-descr">
+                                {{ popular_post.short_description }}
+                            </p>
+
+                            <a href="#" class="btn-card btn-card--orange hero-block__card-link">
+                                <img src="{% static 'images/Frame (1).svg' %}" alt="">
+                                Читать подробнее
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_script %}
+
+{% endblock %}

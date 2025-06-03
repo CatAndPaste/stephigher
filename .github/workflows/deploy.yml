@@ -1,0 +1,67 @@
+name: Deploy to remote server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      REMOTE_DIR: /srv/stephigher/github
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add known hosts
+        run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install project requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Updating project on server
+        run: |
+          rsync -az --delete \
+            --exclude '.env' \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            -e "ssh" ./ ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}
+
+      - name: Django Post
+        env:
+          SSH_HOST: ${{ env.SSH_HOST }}
+          SSH_USER: ${{ env.SSH_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST bash -s <<EOF
+            set -euo pipefail
+            cd ${{ env.REMOTE_DIR }}
+  
+            [ -d ../venv ] || python3 -m venv ../venv
+            source ../venv/bin/activate
+            pip install -r requirements.txt --upgrade --upgrade-strategy only-if-needed
+  
+            python app/manage.py migrate --noinput
+            lessc app/static/style/main.less app/static/style/main.css
+            python app/manage.py collectstatic --noinput
+  
+            sudo systemctl restart gs.service
+            echo "Job's done!"
+          EOF
+        

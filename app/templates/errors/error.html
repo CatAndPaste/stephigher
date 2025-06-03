@@ -1,0 +1,36 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+
+<html lang="ru">
+
+{% include 'hhf/head.html' %}
+
+<body>
+<header>
+    <div class="container">
+        <div class="header__logo-left-wrapper">
+            <a href="{% url 'main_game_store_view' %}" class="header__logo-left">
+                <img src="{% static 'images/index/logo.png' %}" alt="Логотип">
+            </a>
+        </div>
+    </div>
+</header>
+
+
+<main class="main">
+    <section class="errors">
+        <div class="error__wrapper">
+            <h1 class="error__title">Упс! <br> {{ name }}</h1>
+            <img class="error__img" src="{{ image_path.url }}" alt="Картинка ошибки">
+            <div class="error__ling-wrapper">
+                <a class="error__link" href="{% url 'main_game_store_view' %}">
+                    <span><img src="{% static 'images/errors/error_arror.png' %}" alt="Стрелка"></span>На главную страницу
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

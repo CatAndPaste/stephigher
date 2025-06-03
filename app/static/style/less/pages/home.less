@@ -1,0 +1,209 @@
+.hero-block {
+  text-align: center;
+  margin-bottom: 60px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    max-width: 1050px;
+
+    color: #FFF;
+    text-align: center;
+    font-family: @font-main;
+    font-size: clamp(32px, 5vw, 68px);
+    font-weight: 500;
+    line-height: 120%;
+
+    margin-bottom: 16px;
+  }
+
+  &__description {
+    max-width: 1050px;
+
+    color: #FF7A00;
+    text-align: center;
+    font-family: @font-main;
+    font-size: clamp(16px, 2.5vw, 24px);
+    font-weight: 500;
+    line-height: 150%;
+
+    margin-bottom: 50px;
+  }
+
+  &__btn {
+    margin-bottom: 30px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-areas:
+    "item1 item2 item3";
+    gap: 20px;
+
+    text-align: left;
+
+    img {
+      width: 100%;
+    }
+
+    .hero-block__card-link img {
+      width: auto;
+    }
+
+    .item1 {
+      grid-area: item1;
+    }
+
+    .item2 {
+      grid-area: item2;
+    }
+
+    .item3 {
+      grid-area: item3;
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-areas:
+    "item1"
+    "item2"
+    "item3";
+    }
+  }
+}
+
+.latest-news {
+  margin-bottom: 60px;
+
+  &__title {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+
+    margin-bottom: 30px;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); // 6 колонок по умолчанию
+    gap: 20px;
+
+    .item1 {
+      grid-column: span 3;
+    }
+
+    .item2 {
+      grid-column: span 3;
+    }
+
+    .item3,
+    .item4,
+    .item5 {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(6, 1fr); // оставляем 6 колонок
+      .item1 {
+        grid-column: span 6; // на всю ширину
+      }
+
+      .item2,
+      .item3,
+      .item4,
+      .item5 {
+        grid-column: span 3; // по половине
+      }
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr; // одна колонка на мобилках
+      .item1,
+      .item2,
+      .item3,
+      .item4,
+      .item5 {
+        grid-column: span 1; // на всю ширину
+      }
+    }
+  }
+
+  &__card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+}
+
+.promo-banner {
+  margin-bottom: 60px;
+
+  &__image {
+    width: 100%;
+  }
+}
+
+
+.popular-articles {
+  padding: 40px 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    font-size: 32px;
+    color: white;
+  }
+
+  &__link {
+    color: #ff8a00;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  &__cards {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  &__card .card-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+
+  // Планшеты — 2 карточки в строку
+  @media (max-width: 1024px) {
+    &__cards {
+      .popular-articles__card {
+        flex: 0 1 calc((100% - 20px) / 2); // 2 карточки
+      }
+    }
+  }
+
+  // Мобильные — 1 карточка в строку
+  @media (max-width: 767px) {
+    &__cards {
+      flex-direction: column;
+
+      .popular-articles__card {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}
+

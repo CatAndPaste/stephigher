@@ -1,0 +1,22 @@
+body {
+  font-family: @font-main;
+  color: @text-color;
+  line-height: 1.6;
+  background: #201D1D;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 30px;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 0 15px;
+  }
+}
