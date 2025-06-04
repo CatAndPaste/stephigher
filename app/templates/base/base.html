@@ -5,11 +5,12 @@
 
 <html lang="ru">
 
+<head>
 {% include 'hhf/head.html' %}
+<title>{% block seo_title %}{{ page_title|default:"StepHigher" }}{% endblock %}</title>
+</head>
 
 <body>
-
-
 {% include 'hhf/header.html' %}
 
 <main class="main">
@@ -25,6 +26,5 @@
 {% endblock %}
 
 <script src="{% static 'js/mobile_menu.js' %}"></script>
-
 </body>
 </html>

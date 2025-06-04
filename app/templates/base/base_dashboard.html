@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block seo_title %}{{ block.super }} - личный кабинет{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+    <h1>Личный кабинет</h1>
+
+    <nav class="dashboard-nav" style="margin-bottom: 20px;">
+      <button
+        hx-get="{% url 'dashboard:favorites' %}"
+        hx-target="#dashboard-content"
+        hx-push-url="true"
+        hx-swap="innerHTML"
+        class="dash-btn {% if tab == 'favorites' %}dash-nav-active{% endif %}"
+      >
+        Избранное
+      </button>
+      <button
+        hx-get="{% url 'dashboard:user_info' %}"
+        hx-target="#dashboard-content"
+        hx-push-url="true"
+        hx-swap="innerHTML"
+        class="dash-btn {% if tab == 'user_info' %}dash-nav-active{% endif %}"
+      >
+        Личные данные
+      </button>
+      <button
+        hx-get="{% url 'dashboard:settings' %}"
+        hx-target="#dashboard-content"
+        hx-push-url="true"
+        hx-swap="innerHTML"
+        class="dash-btn {% if tab == 'settings' %}dash-nav-active{% endif %}"
+      >
+        Настройки
+      </button>
+    </nav>
+
+    <div id="dashboard-content" hx-swap-oob="true">
+      {% if tab == 'user_info' %}
+        {% include 'accounts/dashboard/user_info.html' %}
+      {% elif tab == 'settings' %}
+        {% include 'accounts/dashboard/settings.html' %}
+      {% else %}
+          {# default tab #}
+        {% include 'accounts/dashboard/favorites.html' %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
