@@ -1,4 +1,27 @@
 <div class="dash-section">
   <h2>Настройки</h2>
-  <p>Settings?</p>
+
+  <form
+    method="post"
+    action="{% url 'dashboard:settings' %}"
+    class="dash-form"
+    hx-post="{% url 'dashboard:settings' %}"
+    hx-target="#dashboard-content"
+    hx-swap="innerHTML"
+  >
+    {% csrf_token %}
+
+    <div class="form-group">
+      {{ form.email_subscriber }} {{ form.email_subscriber.label_tag }}
+      {% if form.email_subscriber.errors %}
+        <div class="error">{{ form.email_subscriber.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div style="margin-top: 20px;">
+      <button type="submit" class="btn-save">
+        Сохранить изменения
+      </button>
+    </div>
+  </form>
 </div>

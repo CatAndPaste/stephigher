@@ -5,8 +5,6 @@ from filer.fields.image import FilerImageField
 
 from pages.models import SeoMixin
 
-# Create your models here.
-
 User = get_user_model()
 
 

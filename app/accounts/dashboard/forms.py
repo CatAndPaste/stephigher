@@ -186,3 +186,21 @@ class UserInfoForm(forms.Form):
                     del self.session[key]
 
         return user
+
+
+class SettingsForm(forms.Form):
+    email_subscriber = forms.BooleanField(
+        required=False,
+        label="Получать информационные рассылки?",
+    )
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        if user:
+            self.fields['email_subscriber'].initial = user.email_subscriber
+
+    def save(self):
+        self.user.email_subscriber = self.cleaned_data['email_subscriber']
+        self.user.save()
+        return self.user

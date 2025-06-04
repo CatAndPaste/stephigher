@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('pages.urls')),
     path('', include('errors.urls')),
-    path('', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     # path('', include('help.urls')),
 ]
 

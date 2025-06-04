@@ -37,6 +37,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         verbose_name='Email'
     )
+    email_subscriber = models.BooleanField(
+        default=True,
+        verbose_name='Подписан на информационные рассылки по email?'
+    )
     is_active = models.BooleanField(
         default=True,
         verbose_name='Активен'

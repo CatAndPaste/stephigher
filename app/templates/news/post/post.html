@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section class="news-detail">
+        <div class="container news-detail__container">
+            <article class="news-detail__article">
+                <h1 class="news-title">{{ post.title }}</h1>
+                <p class="news-subtitle">{{ post.short_description }}</p>
+                <div class="news-meta">
+                    {% for tag in news.tags.all %}
+                        <span class="news-tag">#{{ tag.name }}</span>
+                    {% endfor %}
+                    <span class="news-date">{{ post.published_at|date:"d.m.Y" }}</span>
+                    <span class="news-author">{{ post.author }}</span>
+                </div>
+
+                {% if news.image %}
+                    <div class="news-image">
+                        <img src="{{ news.image.url }}" alt="{{ post.title }}">
+                    </div>
+                {% endif %}
+
+                <div class="news-body">
+                    {{ news.full_description|safe }}
+                </div>
+            </article>
+
+            <section class="news-comments">
+                <h3>Комментарии</h3>
+                <!-- Комментарии если реализуешь -->
+                <p>Комментарии скоро появятся :)</p>
+            </section>
+
+            <section class="news-recommend">
+                <h3>Рекомендуем прочитать</h3>
+                <div class="recommend-cards">
+                    {% for item in recommended_news %}
+                        <div class="card">
+                            <div class="card-tag">#{{ item.tags.first.name }}</div>
+                            <h4>{{ item.title }}</h4>
+                            <p>{{ item.short_description|truncatewords:15 }}</p>
+                            <a href="{% url 'news_detail' slug=item.slug %}">Читать подробнее</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_script %}
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="blog-list">
+  <div class="container">
+    <div class="blog-list__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h1>Блог</h1>
+      <form method="get" id="sort-form" style="display: inline;">
+        <label for="sort-select">Сортировать:</label>
+        <select name="sort" id="sort-select" onchange="document.getElementById('sort-form').submit();" style="margin-left: 8px;">
+          <option value="desc" {% if current_sort == 'desc' %}selected{% endif %}>Сначала новые</option>
+          <option value="asc" {% if current_sort == 'asc' %}selected{% endif %}>Сначала старые</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="blog-list__grid" style="
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 24px;
+    ">
+      {% for post in posts %}
+        <div class="blog-card" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; background: #fff;">
+          {% if post.image %}
+            <div class="blog-card__image" style="width: 100%; padding-top: 56.25%; position: relative; overflow: hidden;">
+              <img src="{{ post.image.url }}" alt="{{ post.title }}" style="position: absolute; top: 0; left: 0; width:100%; height:100%; object-fit: cover;">
+            </div>
+          {% endif %}
+
+          <div class="blog-card__body" style="padding: 16px; flex: 1; display: flex; flex-direction: column;">
+            <div class="blog-card__tags" style="margin-bottom: 8px;">
+              {% for tag in post.tags.all %}
+                <span style="display: inline-block; background: #f0f0f0; color: #555; padding: 2px 6px; font-size: 12px; border-radius: 4px; margin-right: 4px;">
+                  #{{ tag.name }}
+                </span>
+              {% endfor %}
+            </div>
+
+            <h3 class="blog-card__title" style="font-size: 1.2em; margin: 0 0 8px;">{{ post.title }}</h3>
+            <p class="blog-card__excerpt" style="flex: 1; margin: 0 0 16px; color: #666;">
+              {{ post.short_description|truncatewords:20 }}
+            </p>
+
+            <div class="blog-card__meta" style="font-size: 0.9em; color: #999; margin-bottom: 12px;">
+              <span>{{ post.published_at|date:"d.m.Y" }}</span> &nbsp;|&nbsp;
+              <span>{{ post.author.get_full_name|default:post.author.username }}</span>
+            </div>
+
+            <a href="{% url 'blog_detail' post.slug %}" class="blog-card__link" style="align-self: flex-start; text-decoration: none; color: #007BFF;">
+              Читать далее
+            </a>
+          </div>
+        </div>
+      {% empty %}
+        <p>Постов пока нет.</p>
+      {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+      <div class="pagination" style="margin-top: 24px; text-align: center;">
+        <span>
+          Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+        <div style="margin-top: 8px;">
+          {% if page_obj.has_previous %}
+            <a href="?sort={{ current_sort }}&page={{ page_obj.previous_page_number }}" style="margin-right: 12px;">Назад</a>
+          {% endif %}
+          {% if page_obj.has_next %}
+            <a href="?sort={{ current_sort }}&page={{ page_obj.next_page_number }}">Вперёд</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

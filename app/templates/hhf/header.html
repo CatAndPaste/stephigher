@@ -2,17 +2,17 @@
 
 <header class="header">
     <div class="container header__container">
-        <a href="#" class="header__logo-link">
+        <a href="{% url 'home' %}" class="header__logo-link">
             <img src="{% static 'images/logo.svg' %}" alt="logo" class="header__logo-img">
         </a>
 
         <nav class="header__menu">
             <ul class="header__menu-items">
                 <li class="header__menu-item">
-                    <a href="#" class="header__menu-item-link">Главная</a>
+                    <a href="{% url 'home' %}" class="header__menu-item-link">Главная</a>
                 </li>
                 <li class="header__menu-item">
-                    <a href="#" class="header__menu-item-link">Статьи</a>
+                    <a href="{% url 'blog_list' %}" class="header__menu-item-link">Статьи</a>
                 </li>
                 <li class="header__menu-item">
                     <a href="#" class="header__menu-item-link">Новости</a>
@@ -21,14 +21,25 @@
         </nav>
 
         <div class="header__btn-block">
-            <a href="{% url 'signup' %}" class="header__btn-left">
-                <img src="{% static 'images/Iconly.svg' %}" alt="">
-                Зарегистрироваться
-            </a>
-            <a href="{% url 'login' %}" class="header__btn-right">
-                <img src="{% static 'images/Iconly (1).svg' %}" alt="">
-                Войти
-            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard:user_info' %}" class="header__btn-left">
+                    <img src="{% static 'images/Iconly.svg' %}" alt="">
+                    Личный кабинет
+                </a>
+                <a href="{% url 'logout' %}" class="header__btn-right">
+                    <img src="{% static 'images/Iconly (1).svg' %}" alt="">
+                    Выйти
+                </a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="header__btn-left">
+                    <img src="{% static 'images/Iconly.svg' %}" alt="">
+                    Зарегистрироваться
+                </a>
+                <a href="{% url 'login' %}" class="header__btn-right">
+                    <img src="{% static 'images/Iconly (1).svg' %}" alt="">
+                    Войти
+                </a>
+            {% endif %}
         </div>
 
         <!-- Мобильное меню -->
@@ -57,14 +68,25 @@
                 </nav>
 
                 <div class="header__mobile-buttons">
-                    <a href="{% url 'signup' %}" class="header__mobile-btn header__mobile-btn--reg">
-                        <img src="/images/Iconly.svg" alt="">
-                        Зарегистрироваться
-                    </a>
-                    <a href="{% url 'login' %}" class="header__mobile-btn header__mobile-btn--login">
-                        <img src="/images/Iconly (1).svg" alt="">
-                        Войти
-                    </a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'signup' %}" class="header__mobile-btn header__mobile-btn--reg">
+                            <img src="/images/Iconly.svg" alt="">
+                            Зарегистрироваться
+                        </a>
+                        <a href="{% url 'login' %}" class="header__mobile-btn header__mobile-btn--login">
+                            <img src="/images/Iconly (1).svg" alt="">
+                            Войти
+                        </a>
+                    {% else %}
+                        <a href="{% url 'dashboard:user_info' %}" class="header__mobile-btn header__mobile-btn--reg">
+                            <img src="/images/Iconly.svg" alt="">
+                            Личный кабинет
+                        </a>
+                        <a href="{% url 'logout' %}" class="header__mobile-btn header__mobile-btn--login">
+                            <img src="/images/Iconly (1).svg" alt="">
+                            Выйти
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
-from .forms import UserInfoForm
+from .forms import UserInfoForm, SettingsForm
 from accounts.models import User
 
 
@@ -119,8 +119,28 @@ def user_info_view(request):
 
 @login_required(login_url='login')
 def settings_view(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = SettingsForm(request.POST, user=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Настройки сохранены")
+            if request.headers.get('Hx-Request') == 'true':
+                resp = HttpResponse(status=204)
+                resp.headers['HX-Redirect'] = reverse('dashboard:settings')
+                return resp
+            return redirect('dashboard:settings')
+        else:
+            if request.headers.get('Hx-Request') == 'true':
+                return render(request, 'accounts/dashboard/settings.html', {'form': form})
+            return redirect('dashboard:settings')
+
+    # GET
+    form = SettingsForm(user=user)
     if request.headers.get('Hx-Request') == 'true':
-        return render(request, 'accounts/dashboard/settings.html')
+        return render(request, 'accounts/dashboard/settings.html', {'form': form})
     return render(request, 'base/base_dashboard.html', {
-        'tab': 'settings'
+        'tab': 'settings',
+        'form': form
     })
