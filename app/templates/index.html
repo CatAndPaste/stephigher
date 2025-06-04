@@ -78,7 +78,7 @@
                                 {{ latest_new.short_description }}
                             </p>
 
-                            <a href="#" class="btn-card btn-card--blue latest-news__card-link">
+                            <a href="{% url 'news_detail' latest_new.slug %}" class="btn-card btn-card--blue latest-news__card-link">
                                 <img src="{% static 'images/Frame (2)-blue.svg' %}" alt="">
                                 Читать подробнее
                             </a>

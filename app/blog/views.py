@@ -23,7 +23,7 @@ class BlogListView(SeoContextMixin, ListView):
     model = BlogPost
     template_name = 'blog/main.html'
     context_object_name = 'posts'
-    paginate_by = 10
+    paginate_by = 12
 
     # SEO
     seo_title = 'StepHigher - Блог'

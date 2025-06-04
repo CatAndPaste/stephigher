@@ -15,7 +15,7 @@
                     <a href="{% url 'blog_list' %}" class="header__menu-item-link">Статьи</a>
                 </li>
                 <li class="header__menu-item">
-                    <a href="#" class="header__menu-item-link">Новости</a>
+                    <a href="{% url 'news_list' %}" class="header__menu-item-link">Новости</a>
                 </li>
             </ul>
         </nav>
@@ -56,13 +56,13 @@
                 <nav class="header__mobile-nav">
                     <ul class="header__mobile-items">
                         <li class="header__mobile-item">
-                            <a href="#" class="header__mobile-link">Главная</a>
+                            <a href="{% url 'home' %}" class="header__mobile-link">Главная</a>
                         </li>
                         <li class="header__mobile-item">
-                            <a href="#" class="header__mobile-link">Статьи</a>
+                            <a href="{% url 'blog_list' %}" class="header__mobile-link">Статьи</a>
                         </li>
                         <li class="header__mobile-item">
-                            <a href="#" class="header__mobile-link">Новости</a>
+                            <a href="{% url 'news_list' %}" class="header__mobile-link">Новости</a>
                         </li>
                     </ul>
                 </nav>

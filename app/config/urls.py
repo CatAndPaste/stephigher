@@ -33,6 +33,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('', include('errors.urls')),
     path('blog/', include('blog.urls')),
+    path('news/', include('news.urls')),
     # path('', include('help.urls')),
 ]
 
