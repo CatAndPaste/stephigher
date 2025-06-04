@@ -1,25 +1,18 @@
 {% load static %}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<meta name="description" content="{% block seo_description %}{{ default_description|default:'' }}{% endblock %}">
-<meta name="keywords" content="{% block seo_keywords %}{{ default_keywords|default:'' }}{% endblock %}">
+    <meta name="description" content="{% block seo_description %}{{ default_description|default:'' }}{% endblock %}">
+    <meta name="keywords" content="{% block seo_keywords %}{{ default_keywords|default:'' }}{% endblock %}">
 
+    <title>{% block seo_title %}{{ page_title|default:"StepHigher" }}{% endblock %}</title>
 
-<!-- СТИЛИ -->
-{#    <link type="text/css" rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">#}
-{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>#}
-<link rel="stylesheet" href="{% static 'style/main.css' %}">
+    <!-- СТИЛИ -->
+    {#    <link type="text/css" rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">#}
+    {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>#}
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
 
-<script src="https://unpkg.com/htmx.org@2.0.4"></script>
-{# we make sure, htmx won't return partial content while moving through browser history (back and forward) #}
-<script>
-  document.body.addEventListener('htmx:beforeRequest', function(evt) {
-    var target = document.querySelector(evt.detail.target);
-    if (!target) {
-      evt.detail.shouldAbort = true;
-      window.location.href = evt.detail.path;
-    }
-  });
-</script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>

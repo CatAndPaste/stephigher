@@ -5,10 +5,7 @@
 
 <html lang="ru">
 
-<head>
 {% include 'hhf/head.html' %}
-<title>{% block seo_title %}{{ page_title|default:"StepHigher" }}{% endblock %}</title>
-</head>
 
 <body>
 <!-- toasts for Django messages -->
@@ -62,6 +59,16 @@
         const toast = btn.parentElement;
         hideToast(toast);
     }
+</script>
+{# we make sure, htmx won't return partial content while moving through browser history (back and forward) #}
+<script>
+  document.body.addEventListener('htmx:beforeRequest', function(evt) {
+    var target = document.querySelector(evt.detail.target);
+    if (!target) {
+      evt.detail.shouldAbort = true;
+      window.location.href = evt.detail.path;
+    }
+  });
 </script>
 </body>
 </html>
