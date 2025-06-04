@@ -164,7 +164,7 @@ body {
 }
 body {
   font-family: 'Montserrat', -apple-system, sans-serif;
-  color: #333;
+  color: #ffffff;
   line-height: 1.6;
   background: #201D1D;
   overflow-x: hidden;
@@ -785,5 +785,233 @@ body {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 30px;
+}
+.auth-page {
+  display: flex;
+  height: 100vh;
+}
+.auth-page .auth-left {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.38) 100%), url("../images/27ea5512f8be44ec9c53cacf3e47173d1bb086eb (1).jpg") lightgray 50% / cover no-repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  padding-top: 66px;
+}
+.auth-page .auth-left .bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.auth-page .auth-left .content-block {
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 118px;
+}
+.auth-page .auth-left .content-block .logo {
+  width: 300px;
+  margin-bottom: 30px;
+}
+.auth-page .auth-left .content-block h1 {
+  color: #FFF;
+  text-align: center;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 68px;
+  font-weight: 500;
+}
+.auth-page .auth-right {
+  flex: 1;
+  padding: 70px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 153px;
+}
+.auth-page .auth-right .back-link {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 20px;
+  color: #FFF;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.auth-page .auth-right .back-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: url('../images/arrow_back_ios_24px.svg') no-repeat center center;
+  background-size: contain;
+}
+.auth-page .auth-right .back-link:hover {
+  color: #dddddd;
+}
+.auth-page .auth-right .form-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.auth-right .form-separator {
+  height: 1px;
+  background: #F5F5F5;
+  margin: 30px 0;
+  width: 100%;
+  border-radius: 1px;
+}
+.auth-right .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.auth-right .form-group:last-of-type {
+  margin-bottom: 0;
+}
+.auth-right .password-wrapper {
+  position: relative;
+}
+.auth-right .password-wrapper input {
+  padding-right: 40px;
+}
+.auth-right .password-wrapper .toggle-visibility {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+  user-select: none;
+}
+.auth-right .forgot-password {
+  color: #FFF;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+.auth-right button {
+  height: 64px;
+  padding: 6px 20px 6px 6px;
+  border-radius: 25px;
+  background: #FF7A00;
+  color: #FFF;
+  text-align: center;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+.auth-right .register {
+  margin-top: 30px;
+}
+.auth-right .form-group.register {
+  text-align: center;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.auth-right .form-group.register span,
+.auth-right .form-group.register a {
+  display: inline;
+}
+.auth-right .form-group.register a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 500;
+  margin-left: 6px;
+}
+.auth-right h2 {
+  color: #FFF;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+}
+.auth-right form {
+  display: flex;
+  flex-direction: column;
+}
+.auth-right form label {
+  color: #FFF;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.auth-right form input {
+  color: #FFF;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: 1px solid #FFF;
+  border-radius: 25px;
+  background: transparent;
+  outline: none;
+  width: 426px;
+  padding: 24px 30px;
+}
+.auth-right form input:focus {
+  border-color: #347eff;
+}
+.auth-right form .input-wrapper {
+  position: relative;
+}
+.auth-right form .input-wrapper .toggle-visibility {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+}
+.auth-right form .forgot-password {
+  text-align: right;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+.auth-right form .forgot-password a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.auth-right form .forgot-password a:hover {
+  text-decoration: underline;
+}
+.auth-right form .btn {
+  background: #ff7a00;
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: bold;
+  margin: 20px 0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.auth-right form .btn:hover {
+  opacity: 0.9;
+}
+.auth-right form .redirect {
+  text-align: center;
+  font-size: 0.9rem;
+}
+.auth-right form .redirect a {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: 500;
 }
 /*# sourceMappingURL=main.css.map */

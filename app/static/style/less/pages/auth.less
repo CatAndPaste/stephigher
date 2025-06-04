@@ -1,0 +1,291 @@
+// === Переменные ===
+@primary-color: #ff7a00;
+@dark-bg: #121212;
+@text-color: #ffffff;
+
+@input-border: #2c2c2c;
+@input-focus: #347eff;
+
+// === Шаблон страницы ===
+.auth-page {
+  display: flex;
+  height: 100vh;
+
+  .auth-left {
+    flex: 1;
+    position: relative;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.38) 100%),
+    url("../images/27ea5512f8be44ec9c53cacf3e47173d1bb086eb (1).jpg") lightgray 50% / cover no-repeat;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    display: flex;
+    justify-content: center;
+    padding-top: 66px;
+
+    .bg-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .content-block {
+      color: @text-color;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 118px;
+
+      .logo {
+        width: 300px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        color: #FFF;
+        text-align: center;
+        font-family: @font-main;
+        font-size: 68px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .auth-right {
+    flex: 1;
+    padding: 70px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 153px;
+
+    .back-link {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 20px;
+      color: #FFF;
+      font-family: @font-main;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background: url('../images/arrow_back_ios_24px.svg') no-repeat center center;
+        background-size: contain;
+      }
+
+      &:hover {
+        color: lighten(#aaa, 20%);
+      }
+    }
+
+
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+    }
+  }
+}
+
+// === Унифицированная форма ===
+.auth-right {
+
+  .form-separator {
+    height: 1px;
+    background: #F5F5F5;
+    margin: 30px 0;
+    width: 100%;
+    border-radius: 1px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 24px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .password-wrapper {
+    position: relative;
+
+    input {
+      padding-right: 40px;
+    }
+
+    .toggle-visibility {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      color: #999;
+      user-select: none;
+    }
+  }
+
+  .forgot-password {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+
+    margin-bottom: 18px;
+  }
+
+  button {
+    height: 64px;
+
+    padding: 6px 20px 6px 6px;
+    border-radius: 25px;
+    background: #FF7A00;
+
+    color: #FFF;
+    text-align: center;
+    font-family: @font-main;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .register {
+    margin-top: 30px;
+  }
+
+  .form-group.register {
+    text-align: center;
+    font-size: 0.9rem;
+
+        display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    span,
+    a {
+      display: inline;
+    }
+
+    a {
+      color: @text-color;
+      text-decoration: underline;
+      font-weight: 500;
+      margin-left: 6px;
+    }
+  }
+
+  h2 {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      color: #FFF;
+      font-family: @font-main;
+      font-size: 16px;
+      font-weight: 500;
+
+      margin-bottom: 14px;
+    }
+
+    input {
+      color: #FFF;
+      font-family: @font-main;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+
+      border: 1px solid #FFF;
+      border-radius: 25px;
+      background: transparent;
+      outline: none;
+
+      width: 426px;
+      padding: 24px 30px;
+
+      &:focus {
+        border-color: @input-focus;
+      }
+    }
+
+    .input-wrapper {
+      position: relative;
+
+      .toggle-visibility {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #999;
+      }
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin: 10px 0;
+      font-size: 0.9rem;
+
+      a {
+        color: lighten(@text-color, 20%);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .btn {
+      background: @primary-color;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      color: #fff;
+      font-weight: bold;
+      margin: 20px 0;
+      cursor: pointer;
+      font-size: 1rem;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    .redirect {
+      text-align: center;
+      font-size: 0.9rem;
+
+      a {
+        color: @text-color;
+        text-decoration: underline;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
