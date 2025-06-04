@@ -107,7 +107,7 @@
                     <div class="card popular-articles__card item{{ forloop.counter }}">
                         <div class="card-img-block hero-block__card-img-block">
                             <img src="{{ popular_post.image.url }}" alt="" class="card-img hero-block__card-img">
-                            {% include 'blog/partials/like_button.html' with popular_post=popular_post %}
+                            {% include 'blog/partials/like_button.html' with post=popular_post %}
                         </div>
 
                         <div class="card-content hero-block__card-content">
