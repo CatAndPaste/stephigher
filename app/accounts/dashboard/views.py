@@ -14,14 +14,22 @@ from django.core.mail import EmailMultiAlternatives
 
 from .forms import UserInfoForm, SettingsForm
 from accounts.models import User
+from blog.models import BlogPost
 
 
 @login_required(login_url='login')
 def favorites_view(request):
+    user = request.user
+    fav_posts = BlogPost.objects.filter(liked_by=user).order_by('-published_at')
+
     if request.headers.get('Hx-Request') == 'true':
-        return render(request, 'accounts/dashboard/favorites.html')
+        return render(request, 'accounts/dashboard/favorites.html', {
+            'posts': fav_posts
+        })
+
     return render(request, 'base/base_dashboard.html', {
-        'tab': 'favorites'
+        'tab': 'favorites',
+        'posts': fav_posts
     })
 
 
