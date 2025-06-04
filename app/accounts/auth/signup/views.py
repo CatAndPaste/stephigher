@@ -2,10 +2,11 @@ import random
 import string
 import datetime
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
@@ -36,19 +37,20 @@ def signup_step1(request):
 
             request.session['reg_id'] = str(attempt.id)
 
+            text_body = render_to_string('email/signup/registration_code.txt', {
+                'username': username,
+                'code': code,
+            })
+            html_body = render_to_string('email/signup/registration_code.html', {
+                'username': username,
+                'code': code,
+            })
+
             subject = "Подтверждение регистрации на StepHigher"
-            message = (
-                f"Здравствуйте, {username}!\n\n"
-                f"Вы получили это сообщение, поскольку кто-то попытался зарегистрировать учётную запись на "
-                f"raft.tinypaws.space, используя ваш email.\n\n"
-                f"Код подтверждения для завершения регистрации:\n\n"
-                f"{code}\n\n"
-                f"Код действует 6 часов. Пожалуйста завершите регистрации в течение этого времени.\n"
-                f"Если это были не вы, просто проигнорируйте письмо."
-            )
             from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [email]
-            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            msg = EmailMultiAlternatives(subject, text_body, from_email, [email])
+            msg.attach_alternative(html_body, "text/html")
+            msg.send()
 
             return redirect('signup_verify')
     else:
@@ -147,8 +149,8 @@ def signup_step3(request):
             attempt.delete()
             request.session.pop('reg_id', None)
 
-            messages.success(request, "Регистрация прошла успешно! Добро пожаловать.")
-            return redirect('home')
+            messages.success(request, "Регистрация прошла успешно! Вы можете войти")
+            return redirect('login')
     else:
         form = Step3Form()
 
