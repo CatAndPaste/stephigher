@@ -1,4 +1,82 @@
 <div class="dash-section">
-  <h2>Личная информация</h2>
-  <p>Username, email and pwd</p>
+    <h2>Личная информация</h2>
+
+    <form
+            method="post"
+            action="{% url 'dashboard:user_info' %}"
+            class="dash-form"
+            hx-post="{% url 'dashboard:user_info' %}"
+            hx-target="#dashboard-content"
+            hx-swap="innerHTML"
+    >
+        {% csrf_token %}
+
+        <div class="form-row" style="display: flex; gap: 40px;">
+            <div class="col" style="flex: 1;">
+                <div class="form-group">
+                    {{ form.username.label_tag }}<br>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label_tag }}<br>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                {% if form.fields.email_code.required %}
+                    <div class="form-group">
+                        {{ form.email_code.label_tag }}<br>
+                        {{ form.email_code }}
+                        {% if form.email_code.errors %}
+                            <div class="error">{{ form.email_code.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <button
+                                type="button"
+                                class="btn-cancel-email"
+                                hx-get="{% url 'dashboard:user_info' %}"
+                                hx-target="#dashboard-content"
+                                hx-push-url="true"
+                                hx-swap="innerHTML"
+                        >
+                            Отменить смену email
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col" style="flex: 1;">
+                <div class="form-group">
+                    {{ form.new_password1.label_tag }}<br>
+                    {{ form.new_password1 }}
+                    {% if form.new_password1.errors %}
+                        <div class="error">{{ form.new_password1.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.new_password2.label_tag }}<br>
+                    {{ form.new_password2 }}
+                    {% if form.new_password2.errors %}
+                        <div class="error">{{ form.new_password2.errors }}</div>
+                    {% endif %}
+                </div>
+                <p class="help-text" style="font-size: 0.9em; color: #555;">
+                    Если вы не хотите менять пароль, просто оставьте эти поля пустыми.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn-save">
+                Сохранить изменения
+            </button>
+        </div>
+    </form>
 </div>

@@ -14,7 +14,7 @@ class SeoContextMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['default_title'] = self.get_seo_title()
+        context['page_title'] = self.get_seo_title()
         context['default_description'] = self.get_seo_description()
         context['default_keywords'] = self.get_seo_keywords()
         return context

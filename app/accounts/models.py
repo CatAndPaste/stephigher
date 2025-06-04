@@ -80,3 +80,13 @@ class RegistrationAttempt(models.Model):
 
     def __str__(self):
         return f"{self.username} ({self.email}) — {'завершён' if self.is_verified else 'не завершён'}"
+
+
+class EmailChangeRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_change_requests')
+    new_email = models.EmailField()
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        return (timezone.now() - self.created_at).total_seconds() > settings.SIGNUP_CODE_EXPIRATION_SECONDS
