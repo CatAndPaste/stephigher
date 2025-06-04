@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# raw site url
+SITE_NAME = 'raft.tinypaws.space'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,11 +59,6 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-# raw site url
-SITE_NAME = 'raft.tinypaws.space'
-
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

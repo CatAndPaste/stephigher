@@ -28,7 +28,8 @@ class CustomPasswordResetView(PasswordResetView):
 
         if users:
             form.save(
-                use_https=self.request.is_secure(),
+                domain_override=settings.SITE_NAME,
+                use_https=True,
                 token_generator=self.token_generator,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 email_template_name=self.email_template_name,
