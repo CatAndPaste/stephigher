@@ -36,12 +36,15 @@ def signup_step1(request):
 
             request.session['reg_id'] = str(attempt.id)
 
-            subject = "-"
+            subject = "Подтверждение регистрации на StepHigher"
             message = (
-                f"hi!\n\n"
-                f":\n\n"
+                f"Здравствуйте, {username}!\n\n"
+                f"Вы получили это сообщение, поскольку кто-то попытался зарегистрировать учётную запись на "
+                f"raft.tinypaws.space, используя ваш email.\n\n"
+                f"Код подтверждения для завершения регистрации:\n\n"
                 f"{code}\n\n"
-                f"6 hrs"
+                f"Код действует 6 часов. Пожалуйста завершите регистрации в течение этого времени.\n"
+                f"Если это были не вы, просто проигнорируйте письмо."
             )
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [email]
