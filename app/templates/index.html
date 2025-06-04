@@ -31,7 +31,8 @@
                         <div class="card-content hero-block__card-content">
                             <div class="card-tags hero-block__card-tags">
                                 {% for tag in post.tags.all %}
-                                    <a href="#" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                                    <a href="{% url 'blog_list' %}?tag={{ tag.name }}"
+                                       class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
                                 {% endfor %}
 
                             </div>
@@ -113,7 +114,8 @@
                         <div class="card-content hero-block__card-content">
                             <div class="card-tags hero-block__card-tags">
                                 {% for tag in popular_post.tags.all %}
-                                    <a href="#" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                                    <a href="{% url 'blog_list' %}?tag={{ tag.name }}"
+                                       class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
                                 {% endfor %}
                             </div>
 

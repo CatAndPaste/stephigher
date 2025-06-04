@@ -6,7 +6,7 @@ from django.db.models import F
 
 from pages.utils.mixins import SeoContextMixin
 
-from .models import BlogPost
+from .models import BlogPost, Tag
 
 
 class BlogListView(SeoContextMixin, ListView):
@@ -24,12 +24,25 @@ class BlogListView(SeoContextMixin, ListView):
         qs = super().get_queryset()
         sort = self.request.GET.get('sort', 'desc')
         if sort == 'asc':
-            return qs.order_by(F('published_at').asc())
-        return qs.order_by(F('published_at').desc())
+            qs = qs.order_by(F('published_at').asc())
+        else:
+            qs = qs.order_by(F('published_at').desc())
+
+        tag_name = self.request.GET.get('tag')
+        if tag_name:
+            try:
+                tag = Tag.objects.get(name__iexact=tag_name)
+            except Tag.DoesNotExist:
+                return qs.none()
+            qs = qs.filter(tags=tag)
+        return qs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['current_sort'] = self.request.GET.get('sort', 'desc')
+        ctx['filter_by_tag'] = self.request.GET.get('tag', '')
+        # TODO: add tags list
+        ctx['all_tags'] = Tag.objects.all().order_by('name')
         return ctx
 
 

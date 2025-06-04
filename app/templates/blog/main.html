@@ -5,8 +5,7 @@
   <section class="hero-block">
     <div class="container hero-block__container">
       <div class="blog-list__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 class="hero-block__title">Блог</h2>
-
+        <h2 class="hero-block__title">Блог{% if filter_by_tag %}: «{{ filter_by_tag }}»{% endif %}</h2>
         <form method="get" id="sort-form" style="display: inline;">
           <label for="sort-select">Сортировать:</label>
           <select name="sort" id="sort-select" onchange="document.getElementById('sort-form').submit();" style="margin-left: 8px;">
@@ -36,7 +35,7 @@
             <div class="card-content hero-block__card-content">
               <div class="card-tags hero-block__card-tags">
                 {% for tag in post.tags.all %}
-                  <a href="#" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                  <a href="?tag={{ tag.name }}&sort={{ current_sort }}" class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
                 {% endfor %}
               </div>
 
@@ -69,12 +68,12 @@
           </span>
           <div style="margin-top: 8px;">
             {% if page_obj.has_previous %}
-              <a href="?sort={{ current_sort }}&page={{ page_obj.previous_page_number }}" style="margin-right: 12px;">
+              <a href="?sort={{ current_sort }}&tag={{ filter_by_tag }}&page={{ page_obj.previous_page_number }}" style="margin-right: 12px;">
                 Назад
               </a>
             {% endif %}
             {% if page_obj.has_next %}
-              <a href="?sort={{ current_sort }}&page={{ page_obj.next_page_number }}">
+              <a href="?sort={{ current_sort }}&tag={{ filter_by_tag }}&page={{ page_obj.next_page_number }}">
                 Вперёд;
               </a>
             {% endif %}
