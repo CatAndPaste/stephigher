@@ -56,6 +56,16 @@ class BlogDetailView(SeoContextMixin, DetailView):
     seo_description = 'Читайте популярные статьи и свежие новости на StepHigher'
     seo_keywords = 'статьи, новости, StepHigher, блог, технологии'
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        # random posts!
+        ctx['recommended_posts'] = (
+            BlogPost.objects
+            .exclude(pk=self.object.pk)
+            .order_by('?')[:3]
+        )
+        return ctx
+
 @login_required
 def toggle_like(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
