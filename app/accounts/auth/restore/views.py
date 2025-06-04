@@ -8,6 +8,9 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.conf import settings
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
 
 from .forms import EmailOnlyForm
 
@@ -22,6 +25,11 @@ class RestorePasswordStep1View(PasswordResetView):
     subject_template_name = 'email/restore/subject.txt'
 
     success_url = reverse_lazy('restore_done')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -48,9 +56,14 @@ class RestorePasswordStep1View(PasswordResetView):
 class RestorePasswordStep1DoneView(PasswordResetDoneView):
     template_name = 'accounts/auth/restore/step1_done.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['email'] = self.request.GET.get('email', '')
+        ctx['email'] = self.request.GET.get('email', 'ваш почтовый ящик')
         return ctx
 
 
@@ -59,13 +72,41 @@ class RestorePasswordStep2View(PasswordResetConfirmView):
     success_url = reverse_lazy('restore_complete')
 
     def dispatch(self, request, uidb64=None, token=None, *args, **kwargs):
-        user = self.get_user(uidb64)
-        if user is None or not self.token_generator.check_token(user, token):
-            messages.error(request, "Недействительная ссылка для сброса пароля! Пожалуйста проверьте, что вы "
-                                    "скопировали ссылку полностью или попробуйте ещё раз")
+        if request.user.is_authenticated:
+            return redirect('/')
+
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User._default_manager.get(pk=uid)
+        except Exception:
+            user = None
+
+        if token == 'set-password':
+            stored_uid = request.session.get('password_reset_uid')
+            if stored_uid is None or str(stored_uid) != str(uid):
+                messages.error(request, "Ссылка для сброса пароля устарела или неверна")
+                return redirect('restore')
+            return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
+
+        if user is None or not default_token_generator.check_token(user, token):
+            messages.error(
+                request,
+                "Недействительная ссылка для сброса пароля! "
+                "Пожалуйста, проверьте, что вы скопировали ссылку полностью или попробуйте ещё раз"
+            )
             return redirect('restore')
-        return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
+
+        request.session['password_reset_uid'] = uid
+        return redirect(reverse('restore_confirm', kwargs={
+            'uidb64': uidb64,
+            'token': 'set-password'
+        }))
 
 
 class RestorePasswordStep2DoneView(PasswordResetCompleteView):
     template_name = 'accounts/auth/restore/step2_done.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
+        return super().dispatch(request, *args, **kwargs)

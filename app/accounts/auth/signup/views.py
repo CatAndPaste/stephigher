@@ -18,6 +18,9 @@ from accounts.models import User, RegistrationAttempt
 
 
 def signup_step1(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     old_reg_id = request.session.pop('reg_id', None)
     if old_reg_id:
         RegistrationAttempt.objects.filter(id=old_reg_id).delete()
@@ -62,6 +65,9 @@ def signup_step1(request):
 
 
 def signup_step2(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     reg_id = request.session.get('reg_id')
 
     if not reg_id:
@@ -108,6 +114,9 @@ def signup_step2(request):
 
 
 def signup_step3(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     reg_id = request.session.get('reg_id')
     if not reg_id:
         messages.error(request, "Сначала введите имя пользователя и email")
