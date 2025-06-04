@@ -1,0 +1,129 @@
+// reset.less
+// ==========
+// Базовый сброс стилей для всех элементов
+
+// Переменные для сброса
+@reset-margin: 0;
+@reset-padding: 0;
+@reset-border: 0;
+@reset-outline: 0;
+@reset-font-size: 100%;
+@reset-line-height: 1;
+@reset-bg: transparent;
+
+// Миксин для общего сброса
+.reset-box-model() {
+  margin: @reset-margin;
+  padding: @reset-padding;
+  border: @reset-border;
+  outline: @reset-outline;
+}
+
+.reset-typography() {
+  font-size: @reset-font-size;
+  vertical-align: baseline;
+}
+
+// Основной сброс для всех элементов
+* {
+  .reset-box-model();
+  .reset-typography();
+  background: @reset-bg;
+}
+
+// Семантические элементы HTML5
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+// Тело документа
+body {
+  line-height: @reset-line-height;
+}
+
+// Списки
+nav ul {
+  list-style: none;
+}
+
+// Цитаты
+blockquote, q {
+  quotes: none;
+
+  &:before, &:after {
+    content: '';
+    content: none;
+  }
+}
+
+// Ссылки
+a {
+  .reset-box-model();
+  .reset-typography();
+  background: @reset-bg;
+
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// Выделенный текст
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+// Вставленный текст
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+// Удаленный текст
+del {
+  text-decoration: line-through;
+}
+
+// Аббревиатуры
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+// Таблицы
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// Горизонтальная линия
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+// Формы
+input, select {
+  vertical-align: middle;
+}
+
+// Дополнительные сбросы для современных элементов
+audio, canvas, iframe, img, svg, video {
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+// Сброс для box-sizing (можно включить по желанию)
+body {
+  box-sizing: border-box;
+}

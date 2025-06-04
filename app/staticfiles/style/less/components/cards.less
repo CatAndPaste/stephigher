@@ -1,0 +1,63 @@
+.card {
+  border-radius: 20px;
+  background: #433F3B;
+
+  &-img-block {
+    padding: 20px 20px 0 20px;
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+
+      border-radius: 100px;
+      padding: 5px;
+
+      width: 45px;
+      height: 45px;
+      background: white url("/img/Iconly-like.svg") no-repeat center center;
+      background-size: contain;
+      cursor: pointer;
+    }
+  }
+
+  &-content {
+    padding: 30px;
+  }
+
+  &-tags {
+    margin-bottom: 12px;
+  }
+
+  &-tag-link {
+    border-radius: 100px;
+    border: 1px solid #FFF;
+    padding: 4px 12px;
+
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 16px;
+    font-weight: @font-regular;
+  }
+
+  &-title {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 24px;
+    font-weight: @font-regular;
+
+    margin-bottom: 6px;
+  }
+
+  &-descr {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: @font-regular;
+
+    margin-bottom: 30px;
+  }
+
+}

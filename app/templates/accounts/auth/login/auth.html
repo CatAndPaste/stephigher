@@ -4,7 +4,7 @@
     <h1>Вход в аккаунт</h1>
 
     {% if form.non_field_errors %}
-        <div style="color: red;">
+        <div>
             {{ form.non_field_errors }}
         </div>
     {% endif %}
@@ -16,7 +16,7 @@
             <label for="{{ form.email.id_for_label }}">Email</label><br>
             {{ form.email }}
             {% if form.email.errors %}
-                <div style="color: red;">{{ form.email.errors }}</div>
+                <div>{{ form.email.errors }}</div>
             {% endif %}
         </div>
 
@@ -24,7 +24,7 @@
             <label for="{{ form.password.id_for_label }}">Пароль</label><br>
             {{ form.password }}
             {% if form.password.errors %}
-                <div style="color: red;">{{ form.password.errors }}</div>
+                <div>{{ form.password.errors }}</div>
             {% endif %}
         </div>
 

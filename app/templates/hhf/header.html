@@ -21,7 +21,7 @@
         </nav>
 
         <div class="header__btn-block">
-            <a href="#" class="header__btn-left">
+            <a href="{% url 'signup' %}" class="header__btn-left">
                 <img src="{% static 'images/Iconly.svg' %}" alt="">
                 Зарегистрироваться
             </a>
@@ -57,11 +57,11 @@
                 </nav>
 
                 <div class="header__mobile-buttons">
-                    <a href="#" class="header__mobile-btn header__mobile-btn--reg">
+                    <a href="{% url 'signup' %}" class="header__mobile-btn header__mobile-btn--reg">
                         <img src="/images/Iconly.svg" alt="">
                         Зарегистрироваться
                     </a>
-                    <a href="#" class="header__mobile-btn header__mobile-btn--login">
+                    <a href="{% url 'login' %}" class="header__mobile-btn header__mobile-btn--login">
                         <img src="/images/Iconly (1).svg" alt="">
                         Войти
                     </a>

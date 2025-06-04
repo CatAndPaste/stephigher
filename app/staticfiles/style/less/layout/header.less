@@ -1,0 +1,207 @@
+.header {
+  position: relative;
+
+  margin: 30px 0 50px;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  &__mobile {
+    display: none; // По умолчанию скрыто
+
+    @media (max-width: 992px) {
+      display: block;
+    }
+  }
+
+  &__burger {
+    display: none;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &-line {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+  }
+
+  &__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    background: #fff;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+
+    &.active {
+      left: 0;
+    }
+  }
+
+  &__mobile-items {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0 0;
+  }
+
+  &__mobile-item {
+    margin-bottom: 20px;
+  }
+
+  &__mobile-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #CF711F;
+    }
+  }
+
+  &__mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  &__mobile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+
+    &--reg {
+      background: #CF711F;
+      color: white;
+    }
+
+    &--login {
+      border: 1px solid #CF711F;
+      color: #CF711F;
+      background: white;
+    }
+  }
+
+  // Скрываем десктопные элементы на мобилках
+  @media (max-width: 992px) {
+    &__menu,
+    &__btn-block {
+      display: none;
+    }
+  }
+}
+
+.header__menu {
+  ul {
+    display: flex;
+    gap: 24px;
+  }
+
+  &-item-link {
+    color: #FFF;
+    font-family: @font-main;
+    font-size: 16px;
+    font-weight: @font-medium;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background-color: #CF711F;
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: #CF711F;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.header__btn-block {
+  display: flex;
+  gap: 22px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.header__btn-left,
+.header__btn-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  padding: 12px 24px;
+
+  color: #FFF;
+  font-family: @font-main;
+  font-size: 16px;
+  font-weight: @font-medium;
+  line-height: normal;
+
+  border-radius: 22px;
+
+  transition: 0.3s linear;
+}
+
+.header__btn-left {
+  border: 1px solid #FFF;
+
+  &:hover {
+    border-radius: 22px;
+    border: 1px solid #000;
+    background: #FFF;
+
+    color: #000;
+  }
+}
+
+.header__btn-right {
+  background: #2A5BCC;
+
+  &:hover {
+    border-radius: 22px;
+    background: #1E4EB5;
+  }
+}
+
+

@@ -1,0 +1,31 @@
+{% extends 'base/base_auth.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{% trans "Регистрация — Шаг 3" %}</h1>
+  <p>{% trans "Придумайте пароль для своего аккаунта." %}</p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <p>
+      <label for="{{ form.new_password1.id_for_label }}">{{ form.new_password1.label }}:</label><br>
+      {{ form.new_password1 }}
+      {% if form.new_password1.errors %}
+        <div style="color: red;">{{ form.new_password1.errors }}</div>
+      {% endif %}
+    </p>
+    <p>
+      <label for="{{ form.new_password2.id_for_label }}">{{ form.new_password2.label }}:</label><br>
+      {{ form.new_password2 }}
+      {% if form.new_password2.errors %}
+        <div style="color: red;">{{ form.new_password2.errors }}</div>
+      {% endif %}
+    </p>
+    <button type="submit">{% trans "Завершить регистрацию" %}</button>
+  </form>
+
+  <p>
+    <a href="{% url 'signup' %}">{% trans "Начать сначала" %}</a>
+  </p>
+{% endblock %}

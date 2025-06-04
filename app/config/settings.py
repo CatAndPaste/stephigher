@@ -260,3 +260,7 @@ CKEDITOR_5_CONFIGS = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
+
+SIGNUP_CODE_EXPIRATION_SECONDS = 6 * 60 * 60    # 6 hrs
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

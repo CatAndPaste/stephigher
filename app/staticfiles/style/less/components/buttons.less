@@ -1,0 +1,66 @@
+/* ========== БАЗОВЫЕ СТИЛИ КНОПКИ ========== */
+.btn-card {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 100%;
+  width: auto;
+  padding: 6px 20px 6px 6px;
+  gap: 8px;
+
+  border-radius: 100px;
+
+  color: #FFF;
+  font-family: @font-main;
+  font-size: 18px;
+  font-weight: @font-medium;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  /* ========== МОДИФИКАТОР ЦВЕТА ========== */
+
+  &--orange {
+    background: #FF7A00;
+
+    &:hover,
+    &:active {
+      background: #BF5C05;
+    }
+  }
+
+  &--blue {
+    background: #2A5BCC;
+
+    &:hover,
+    &:active {
+      background: #1E4EB5;
+    }
+  }
+
+  /* ========== СТИЛИ ДЛЯ ИКОНКИ ========== */
+
+  img {
+    border-radius: 61px;
+    background: #FFF;
+    padding: 12px 18px;
+    transition: all 0.3s ease;
+
+    display: block;
+    width: auto;
+    height: auto;
+  }
+
+  /* ========== АДАПТИВНЫЕ СТИЛИ ========== */
+  @media (max-width: 767px) {
+    font-size: 16px;
+    padding: 5px 16px 5px 5px;
+
+    img {
+      padding: 10px 15px;
+    }
+  }
+}
