@@ -25,7 +25,7 @@
                         <div class="card-img-block hero-block__card-img-block">
                             <img src="{{ post.image.url }}" alt=""
                                  class="card-img hero-block__card-img">
-                            <button class="card-btn-like hero-block__card-btn-like"></button>
+                            {% include 'blog/partials/like_button.html' with post=post %}
                         </div>
 
                         <div class="card-content hero-block__card-content">
@@ -44,7 +44,7 @@
                                 {{ post.short_description }}
                             </p>
 
-                            <a href="#" class="btn-card btn-card--orange hero-block__card-link">
+                            <a href="{% static 'images/Frame (1).svg' %}" class="btn-card btn-card--orange hero-block__card-link">
                                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
                                 Читать подробнее
                             </a>
@@ -99,7 +99,7 @@
         <div class="container popular-articles__container">
             <div class="popular-articles__header">
                 <h2 class="popular-articles__title">Популярные статьи</h2>
-                <a href="#" class="popular-articles__link">Смотреть все</a>
+                <a href="{% url 'blog_list' %}" class="popular-articles__link">Смотреть все</a>
             </div>
 
             <div class="popular-articles__cards">
@@ -107,7 +107,7 @@
                     <div class="card popular-articles__card item{{ forloop.counter }}">
                         <div class="card-img-block hero-block__card-img-block">
                             <img src="{{ popular_post.image.url }}" alt="" class="card-img hero-block__card-img">
-                            <button class="card-btn-like hero-block__card-btn-like"></button>
+                            {% include 'blog/partials/like_button.html' with popular_post=popular_post %}
                         </div>
 
                         <div class="card-content hero-block__card-content">
@@ -125,7 +125,7 @@
                                 {{ popular_post.short_description }}
                             </p>
 
-                            <a href="#" class="btn-card btn-card--orange hero-block__card-link">
+                            <a href="{% url 'blog_detail' popular_post.slug %}" class="btn-card btn-card--orange hero-block__card-link">
                                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
                                 Читать подробнее
                             </a>

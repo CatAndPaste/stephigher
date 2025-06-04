@@ -6,13 +6,15 @@
     <div class="container hero-block__container">
       <div class="blog-list__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2 class="hero-block__title">Блог</h2>
+
         <form method="get" id="sort-form" style="display: inline;">
-          <label for="sort-select">Сортировать:}</label>
+          <label for="sort-select">Сортировать:</label>
           <select name="sort" id="sort-select" onchange="document.getElementById('sort-form').submit();" style="margin-left: 8px;">
-            <option value="desc" {% if current_sort == 'desc' %}selected{% endif %}>Сначала новые}</option>
+            <option value="desc" {% if current_sort == 'desc' %}selected{% endif %}>Сначала новые</option>
             <option value="asc"  {% if current_sort == 'asc'  %}selected{% endif %}>Сначала старые</option>
           </select>
         </form>
+
       </div>
 
       <div class="hero-block__cards">
@@ -28,7 +30,7 @@
               {% else %}
                 <div class="card-img hero-block__card-img" style="background: #f0f0f0;"></div>
               {% endif %}
-              <button class="card-btn-like hero-block__card-btn-like"></button>
+              {% include 'blog/partials/like_button.html' with post=post %}
             </div>
 
             <div class="card-content hero-block__card-content">
@@ -51,7 +53,7 @@
                 class="btn-card btn-card--orange hero-block__card-link"
               >
                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
-                Читать далее
+                Читать подробнее
               </a>
             </div>
           </div>
