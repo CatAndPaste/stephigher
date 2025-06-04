@@ -1,10 +1,10 @@
 {% extends 'base/base_auth.html' %}
-{% load i18n %}
 
 {% block content %}
-  <h1>{% trans "Регистрация — Шаг 3" %}</h1>
-  <p>{% trans "Придумайте пароль для своего аккаунта." %}</p>
+  <h1>Шаг 03/03</h1>
+  <h1>Подтверждение адреса электронной почты</h1>
 
+  <h2>Введите пароль</h2>
   <form method="post" novalidate>
     {% csrf_token %}
     {{ form.non_field_errors }}
@@ -22,10 +22,10 @@
         <div style="color: red;">{{ form.new_password2.errors }}</div>
       {% endif %}
     </p>
-    <button type="submit">{% trans "Завершить регистрацию" %}</button>
+    <button type="submit">Завершить регистрацию</button>
   </form>
 
   <p>
-    <a href="{% url 'signup' %}">{% trans "Начать сначала" %}</a>
+    <a href="{% url 'signup' %}">Начать сначала</a>
   </p>
 {% endblock %}
