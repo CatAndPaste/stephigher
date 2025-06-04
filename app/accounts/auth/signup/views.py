@@ -40,10 +40,12 @@ def signup_step1(request):
             text_body = render_to_string('email/signup/registration_code.txt', {
                 'username': username,
                 'code': code,
+                'site_name': settings.SITE_NAME,
             })
             html_body = render_to_string('email/signup/registration_code.html', {
                 'username': username,
                 'code': code,
+                'site_name': settings.SITE_NAME,
             })
 
             subject = "Подтверждение регистрации на StepHigher"

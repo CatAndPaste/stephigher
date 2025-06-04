@@ -1,0 +1,18 @@
+{% extends 'base/base_auth.html' %}
+
+{% block content %}
+    <h1>Шаг 01/03</h1>
+    <h1>Сброс пароля</h1>
+
+    <h2>Забыли пароль?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="{{ form.email.id_for_label }}">Введите email для сброса пароля</label><br>
+        {{ form.email }}<br>
+        {% if form.email.errors %}
+            <div style="color: red;">{{ form.email.errors }}</div>
+        {% endif %}
+
+        <button type="submit">Продолжить</button>
+    </form>
+{% endblock %}

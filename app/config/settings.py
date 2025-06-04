@@ -56,6 +56,8 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+# raw site url
+SITE_NAME = 'raft.tinypaws.space'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
