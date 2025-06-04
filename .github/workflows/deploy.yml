@@ -26,18 +26,12 @@ jobs:
       - name: Add known hosts
         run: echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
-      - name: Sync Code
-        run: |
-          rsync -az --delete \
-            --exclude 'app/media' \
-            --exclude '.git/' \
-            --exclude '.github/' \
-            -e "ssh" ./ ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}
-          
-      - name: Add new media files
+      - name: Add new files
         run: |
           rsync -az --ignore-existing \
-            -e "ssh" app/media/ \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            -e "ssh" ./ \
             ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}/app/media/
 
       - name: Django Post
