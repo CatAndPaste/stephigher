@@ -4,6 +4,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetCompleteView
 )
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.conf import settings
@@ -13,7 +14,7 @@ from .forms import EmailOnlyForm
 from accounts.models import User
 
 
-class CustomPasswordResetView(PasswordResetView):
+class RestorePasswordStep1View(PasswordResetView):
     template_name = 'accounts/auth/restore/step1.html'
     form_class = EmailOnlyForm
     email_template_name = 'email/restore/reset_link.txt'
@@ -44,7 +45,7 @@ class CustomPasswordResetView(PasswordResetView):
         return redirect(f"{self.success_url}?email={email}")
 
 
-class CustomPasswordResetDoneView(PasswordResetDoneView):
+class RestorePasswordStep1DoneView(PasswordResetDoneView):
     template_name = 'accounts/auth/restore/step1_done.html'
 
     def get_context_data(self, **kwargs):
@@ -53,10 +54,18 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
         return ctx
 
 
-class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+class RestorePasswordStep2View(PasswordResetConfirmView):
     template_name = 'accounts/auth/restore/step2.html'
     success_url = reverse_lazy('restore_complete')
 
+    def dispatch(self, request, uidb64=None, token=None, *args, **kwargs):
+        user = self.get_user(uidb64)
+        if user is None or not self.token_generator.check_token(user, token):
+            messages.error(request, "Недействительная ссылка для сброса пароля! Пожалуйста проверьте, что вы "
+                                    "скопировали ссылку полностью или попробуйте ещё раз")
+            return redirect('restore')
+        return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
 
-class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+
+class RestorePasswordStep2DoneView(PasswordResetCompleteView):
     template_name = 'accounts/auth/restore/step2_done.html'

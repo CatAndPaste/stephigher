@@ -264,7 +264,10 @@ CKEDITOR_5_CONFIGS = {
 
 AUTH_USER_MODEL = 'accounts.User'
 
+# 6-digits code to confirm account creation
 SIGNUP_CODE_EXPIRATION_SECONDS = 6 * 60 * 60    # 6 hrs
+# reset password link
+PASSWORD_RESET_TIMEOUT = 6 * 60 * 60            # 6 hrs
 
 # Debug emailer (shows in console)
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
