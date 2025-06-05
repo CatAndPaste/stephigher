@@ -28,7 +28,7 @@
 
                     <p>На почту tema@mail.ru отправлено письмо с кодом подтверждения</p>
 
-                    <form>
+                    <form method="POST">
                         {% csrf_token %}
 
                         <div class="form-group element-1">
