@@ -12,7 +12,7 @@
         </div>
 
         <div class="auth-right">
-            <div class="back-link">Назад</div>
+            <a href="{% url 'home' %}" class="back-link">Назад</a>
 
             <div class="form-wrapper">
                 <div class="form-container">
@@ -21,29 +21,38 @@
                     <div class="form-separator"></div>
 
                     <form>
-                        <div class="form-group ">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="Введите адрес электронной почты"/>
+                        {% csrf_token %}
+
+                        <div class="form-group element-1">
+                            <label for="{{ form.email.id_for_label }}">Email</label><br>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                {{ form.email.errors }}
+                            {% endif %}
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">Пароль</label>
+                        <div class="form-group element-2">
+                            <label for="{{ form.password.id_for_label }}">Пароль</label><br>
                             <div class="password-wrapper">
-                                <input type="password" id="password" placeholder="Введите пароль"/>
+                                {{ form.password }}
                                 <span class="toggle-visibility">👁</span>
                             </div>
+
+                            {% if form.password.errors %}
+                                <div>{{ form.password.errors }}</div>
+                            {% endif %}
                         </div>
 
-                        <div class="form-group forgot-password">
-                            <a href="#">Забыли пароль?</a>
+                        <div class="form-group forgot-password element-3">
+                            <a href="{% url 'restore' %}">Забыли пароль?</a>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group element-4">
                             <button type="submit">Войти в аккаунт</button>
                         </div>
 
-                        <div class="form-group register">
-                            <span>Нет аккаунта?</span> <a href="#">Зарегистрируйтесь</a>
+                        <div class="form-group register element-5">
+                            <span>Нет аккаунта?</span> <a href="{% url 'signup' %}">Зарегистрируйтесь</a>
                         </div>
 
 
@@ -51,44 +60,11 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    {#        <h1>Вход в аккаунт</h1>#}
-    {##}
-    {#        {% if form.non_field_errors %}#}
-    {#            <div>#}
-    {#                {{ form.non_field_errors }}#}
-    {#            </div>#}
-    {#        {% endif %}#}
-    {##}
-    {#        <form method="post">#}
-    {#            {% csrf_token %}#}
-    {##}
-    {#            <div>#}
-    {#                <label for="{{ form.email.id_for_label }}">Email</label><br>#}
-    {#                {{ form.email }}#}
-    {#                {% if form.email.errors %}#}
-    {#                    <div>{{ form.email.errors }}</div>#}
-    {#                {% endif %}#}
-    {#            </div>#}
-    {##}
-    {#            <div>#}
-    {#                <label for="{{ form.password.id_for_label }}">Пароль</label><br>#}
-    {#                {{ form.password }}#}
-    {#                {% if form.password.errors %}#}
-    {#                    <div>{{ form.password.errors }}</div>#}
-    {#                {% endif %}#}
-    {#            </div>#}
-    {##}
-    {#            <button type="submit">Войти</button>#}
-    {#        </form>#}
-    {##}
-    {#        <p>#}
-    {#            <a href="#">Забыли пароль?</a>#}
-    {#        </p>#}
-    {##}
-    {#        <p>#}
-    {#            Нет аккаунта? <a href="#">Зарегистрируйтесь</a>#}
-    {#        </p#}
-    {#        >#}
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

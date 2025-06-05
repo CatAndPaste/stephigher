@@ -1,24 +1,61 @@
 {% extends 'base/base_auth.html' %}
+{% load static %}
 
 {% block content %}
-  <h1>Шаг 02/03</h1>
-  <h1>Подтверждение адреса электронной почты</h1>
+    <div class="auth-page">
+        <div class="auth-left">
+            <div class="content-block">
+                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <h1>Начните свое <br> путешествие!</h1>
+            </div>
+        </div>
 
-  <h2>Подтвердите email</h2>
-  <form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <p>
-      <label for="{{ form.code.id_for_label }}">На почту {{ email|default:"" }} отправлено письмо с кодом подтверждения</label><br>
-      {{ form.code }}
-      {% if form.code.errors %}
-        <div style="color: red;">{{ form.code.errors }}</div>
-      {% endif %}
-    </p>
-    <button type="submit">"Подтвердить код"</button>
-  </form>
+        <div class="auth-right">
+            <div class="reset-password-header">
+                <div class="back-link">Назад</div>
 
-  <p>
-    <a href="{% url 'signup' %}">"Вернуться к вводу Email и имени"</a>
-  </p>
+                <div class="step-info">
+                    <div class="step-count">Шаг 02/03</div>
+                    <div class="step-title">Подтверждение адреса электронной почты</div>
+                </div>
+            </div>
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Подтвердите email</h2>
+
+                    <div class="form-separator"></div>
+
+                    <p>На почту tema@mail.ru отправлено письмо с кодом подтверждения</p>
+
+                    <form>
+                        {% csrf_token %}
+
+                        <div class="form-group element-1">
+                            <label for="{{ form.code.id_for_label }}">На почту {{ email|default:"" }} отправлено письмо
+                                с кодом
+                                подтверждения</label><br>
+                            {{ form.code }}
+                            {% if form.code.errors %}
+                                <div style="color: red;">{{ form.code.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-2">
+                            <button type="submit">Подтвердить код</button>
+                        </div>
+
+                    </form>
+
+                    <a href="{% url 'signup' %}">"Вернуться к вводу Email и имени"</a>
+                </div>
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -6,8 +6,13 @@ from django.utils.translation import gettext_lazy as _
 class EmailAuthenticationForm(forms.Form):
     email = forms.EmailField(
         label=_('Email'),
-        widget=forms.EmailInput(attrs={'autofocus': True})
+        widget=forms.EmailInput(attrs={
+            'autofocus': True,
+            'id': 'email',
+            'placeholder': 'Введите адрес электронной почты'
+        })
     )
+
     password = forms.CharField(
         label=_('Пароль'),
         strip=False,

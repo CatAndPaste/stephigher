@@ -1,34 +1,77 @@
 {% extends 'base/base_auth.html' %}
+{% load static %}
 
 {% block content %}
-  <h1>Шаг 01/03</h1>
-  <h1>Персональная информация</h1>
+    <div class="auth-page">
+        <div class="auth-left">
+            <div class="content-block">
+                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <h1>Начните свое <br> путешествие!</h1>
+            </div>
+        </div>
 
-  <h2>Заполните поля ниже</h2>
-  <form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <p>
-      <label for="{{ form.username.id_for_label }}">Имя пользователя*</label><br>
-      {{ form.username }}
-      {% if form.username.errors %}
-        <div style="color: red;">{{ form.username.errors }}</div>
-      {% endif %}
-    </p>
-    <p>
-      <label for="{{ form.email.id_for_label }}">Email*</label><br>
-      {{ form.email }}
-      {% if form.email.errors %}
-        <div style="color: red;">{{ form.email.errors }}</div>
-      {% endif %}
-    </p>
-    <p>
-      {{ form.accept_rules }}
-      <label for="{{ form.accept_rules.id_for_label }}">Я принимаю правила сайта</label>
-      {% if form.accept_rules.errors %}
-        <div style="color: red;">{{ form.accept_rules.errors }}</div>
-      {% endif %}
-    </p>
-    <button type="submit">Продолжить</button>
-  </form>
+        <div class="auth-right">
+            <div class="reset-password-header">
+                <div class="back-link">Назад</div>
+
+                <div class="step-info">
+                    <div class="step-count">Шаг 01/03</div>
+                    <div class="step-title">Персональная информация</div>
+                </div>
+            </div>
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Заполните поля для регистрации Вашего аккаунта на платформе</h2>
+
+                    <div class="form-separator"></div>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="form-group element-1">
+                            <label for="{{ form.username.id_for_label }}">Имя пользователя*</label><br>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div style="color: red;">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-2">
+                            <label for="{{ form.email.id_for_label }}">Email*</label><br>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div style="color: red;">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-3">
+                            {{ form.accept_rules }}
+                            <label for="{{ form.accept_rules.id_for_label }}">Я принимаю правила сайта</label>
+                            {% if form.accept_rules.errors %}
+                                <div style="color: red;">{{ form.accept_rules.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-5">
+                            <button type="submit">Продолжить</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </div>
+
+
+
+
+
 {% endblock %}

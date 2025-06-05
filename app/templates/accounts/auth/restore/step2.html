@@ -1,27 +1,65 @@
 {% extends 'base/base_auth.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Шаг 03/03</h1>
-    <h1>Новый пароль</h1>
+    <div class="auth-page">
+        <div class="auth-left">
+            <div class="content-block">
+                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <h1>Начните свое <br> путешествие!</h1>
+            </div>
+        </div>
 
-    <h2>Отлично! осталось совсем чуть-чуть</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <p>
-            <label for="{{ form.new_password1.id_for_label }}">Новый пароль*</label><br>
-            {{ form.new_password1 }}
-            {% if form.new_password1.errors %}
-                <div style="color: red;">{{ form.new_password1.errors }}</div>
-            {% endif %}
-        </p>
-        <p>
-            <label for="{{ form.new_password2.id_for_label }}">Подтвердите пароль*</label><br>
-            {{ form.new_password2 }}
-            {% if form.new_password2.errors %}
-                <div style="color: red;">{{ form.new_password2.errors }}</div>
-            {% endif %}
-        </p>
-        <button type="submit">Сменить пароль</button>
-    </form>
+        <div class="auth-right">
+            <div class="reset-password-header">
+                <div class="back-link">Назад</div>
+
+                <div class="step-info">
+                    <div class="step-count">Шаг 03/04</div>
+                    <div class="step-title">Новый пароль</div>
+                </div>
+            </div>
+
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Отлично! осталось совсем чуть-чуть</h2>
+
+                    <div class="form-separator"></div>
+
+                    <form>
+                        {% csrf_token %}
+
+                        <div class="form-group element-1">
+                            <label for="{{ form.new_password1.id_for_label }}">Новый пароль*</label><br>
+                            {{ form.new_password1 }}
+                            {% if form.new_password1.errors %}
+                                <div style="color: red;">{{ form.new_password1.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-2">
+                            <label for="{{ form.new_password2.id_for_label }}">Подтвердите пароль*</label><br>
+                            {{ form.new_password2 }}
+                            {% if form.new_password2.errors %}
+                                <div style="color: red;">{{ form.new_password2.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-4">
+                            <button type="submit">Сменить пароль</button>
+                        </div>
+
+                        {{ form.non_field_errors }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

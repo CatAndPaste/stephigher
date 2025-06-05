@@ -1,18 +1,57 @@
 {% extends 'base/base_auth.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Шаг 01/03</h1>
-    <h1>Сброс пароля</h1>
 
-    <h2>Забыли пароль?</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="{{ form.email.id_for_label }}">Введите email для сброса пароля</label><br>
-        {{ form.email }}<br>
-        {% if form.email.errors %}
-            <div style="color: red;">{{ form.email.errors }}</div>
+    <div class="auth-page">
+        <div class="auth-left">
+            <div class="content-block">
+                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <h1>Начните свое <br> путешествие!</h1>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="reset-password-header">
+                <div class="back-link">Назад</div>
+
+                <div class="step-info">
+                    <div class="step-count">Шаг 01/04</div>
+                    <div class="step-title">Сброс пароля</div>
+                </div>
+            </div>
+
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Вход в аккаунт</h2>
+
+                    <div class="form-separator"></div>
+
+                    <form>
+                        {% csrf_token %}
+
+                        <div class="form-group element-1">
+                            <label for="{{ form.email.id_for_label }}">Введите email для сброса пароля</label><br>
+                            {{ form.email }}<br>
+                            {% if form.email.errors %}
+                                <div style="color: red;">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group element-4">
+                            <button type="submit">Продолжить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
         {% endif %}
+    </div>
 
-        <button type="submit">Продолжить</button>
-    </form>
 {% endblock %}

@@ -1,10 +1,37 @@
 {% extends 'base/base_auth.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Шаг 03/03</h1>
-    <h1>Всё готово!</h1>
+    <div class="auth-page">
+        <div class="auth-left">
+            <div class="content-block">
+                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <h1>Начните свое <br> путешествие!</h1>
+            </div>
+        </div>
 
-    <h2>Пароль успешно изменён!</h2>
-    <p>Вы можете авторизоваться с новым паролем</p>
-    <p><a href="{% url 'login' %}">Войти</a></p>
+        <div class="auth-right">
+            <div class="reset-password-header">
+                <div class="back-link">Назад</div>
+
+                <div class="step-info">
+                    <div class="step-count">Шаг 04/04</div>
+                    <div class="step-title">Всё готово!</div>
+                </div>
+            </div>
+
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Пароль успешно изменён!</h2>
+
+                    <div class="form-separator"></div>
+                    <p>Вы можете авторизоваться с новым паролем</p>
+                </div>
+            </div>
+
+            <div class="form-group element-4">
+                <a href="{% url 'login' %}">Войти</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
