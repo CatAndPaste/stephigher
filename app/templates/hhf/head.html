@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>{% block seo_title %}{{ default_title|default:"StepHigher" }}{% endblock %}</title>
     <meta name="description" content="{% block seo_description %}{{ default_description|default:'' }}{% endblock %}">
     <meta name="keywords" content="{% block seo_keywords %}{{ default_keywords|default:'' }}{% endblock %}">
 
+    <title>{% block seo_title %}{{ page_title|default:"StepHigher" }}{% endblock %}</title>
 
     <!-- СТИЛИ -->
     {#    <link type="text/css" rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">#}

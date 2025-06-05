@@ -1,0 +1,179 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="hero-block hero-block__container">
+        <h1 class="hero-block__title">
+            Блог Raft
+        </h1>
+
+        <p class="hero-block__description">
+            Советы, новости и обсуждения игры
+        </p>
+
+        <div class="container promo-banner">
+            <div class="promo-banner__container">
+                <img
+                        src="{% static 'images/Frame 1707480226.png' %}"
+                        alt="Raft - The Final Chapter"
+                        class="promo-banner__image"
+                />
+            </div>
+        </div>
+
+        <div class="container hero-block__container">
+            <div class="blog-list__header blog-list__catalog_header">
+                <h2 class="latest-news__title">
+                    Блог{% if filter_by_tag %}: «{{ filter_by_tag }}»{% endif %}
+                </h2>
+
+                <form method="get" id="sort-form" class="sort-form">
+                    <button
+                            type="button"
+                            class="sort-button sort-button-icon"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            aria-label="Сортировать"
+                    >
+                        <img src="{% static 'images/filter.svg' %}" alt="Фильтр"/>
+                    </button>
+                    <button
+                            type="button"
+                            class="btn-card btn-card--orange sort-button sort-button-full"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                    >
+                        <img src="{% static 'images/filter.svg' %}" alt="Фильтр"/>
+                        <span class="sort-button-full__text">
+        {% if current_sort == 'desc' %}Сначала новые{% elif current_sort == 'asc' %}Сначала старые{% endif %}
+      </span>
+                    </button>
+                    <div class="sort-dropdown hidden">
+                        <button
+                                type="submit"
+                                name="sort"
+                                value="desc"
+                                class="sort-dropdown__item{% if current_sort == 'desc' %} sort-dropdown__item--active{% endif %}"
+                        >
+                            Сначала новые
+                        </button>
+                        <button
+                                type="submit"
+                                name="sort"
+                                value="asc"
+                                class="sort-dropdown__item{% if current_sort == 'asc' %} sort-dropdown__item--active{% endif %}"
+                        >
+                            Сначала старые
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="hero-block__cards">
+                {% for post in posts %}
+                    <div class="card hero-block__card">
+                        <div class="card-img-block hero-block__card-img-block">
+                            {% if post.image %}
+                                <img
+                                        src="{{ post.image.url }}"
+                                        alt="{{ post.title }}"
+                                        class="card-img hero-block__card-img"
+                                >
+                            {% else %}
+                                <div class="card-img hero-block__card-img" style="background: #f0f0f0;"></div>
+                            {% endif %}
+                            {% include 'blog/partials/like_button.html' with post=post %}
+                        </div>
+
+                        <div class="card-content hero-block__card-content">
+                            <div class="card-tags hero-block__card-tags">
+                                {% for tag in post.tags.all %}
+                                    <a href="?tag={{ tag.name|urlencode }}&sort={{ current_sort }}"
+                                       class="card-tag-link hero-block__card-tag-link">#{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+
+                            <h3 class="card-title hero-block__card-title">
+                                {{ post.title }}
+                            </h3>
+
+                            <p class="card-descr hero-block__card-descr">
+                                {{ post.short_description|truncatewords:20 }}
+                            </p>
+
+                            <a
+                                    href="{% url 'blog_detail' post.slug %}"
+                                    class="btn-card btn-card--orange hero-block__card-link"
+                            >
+                                <img src="{% static 'images/Frame (1).svg' %}" alt="">
+                                Читать подробнее
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Постов пока нет.</p>
+                {% endfor %}
+            </div>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                    <div class="pagination-numbers">
+                        {% for item in page_sequence %}
+                            {% if item == '...' %}
+                                <span class="pagination-ellipsis">...</span>
+                            {% else %}
+                                {% if item == page_obj.number %}
+                                    <span class="page-current">{{ item }}</span>
+                                {% else %}
+                                    <a href="?sort={{ current_sort }}&tag={{ filter_by_tag }}&page={{ item }}"
+                                       class="page-link">{{ item }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sortForm = document.getElementById('sort-form');
+            const togglers = sortForm.querySelectorAll('.sort-button');
+            const sortDropdown = sortForm.querySelector('.sort-dropdown');
+
+            function toggleDropdown() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    sortDropdown.classList.add('hidden');
+                    togglers.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+                } else {
+                    sortDropdown.classList.remove('hidden');
+                    togglers.forEach(btn => btn.setAttribute('aria-expanded', 'true'));
+                }
+            }
+
+            togglers.forEach(btn => {
+                btn.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    toggleDropdown.call(this);
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!sortForm.contains(event.target)) {
+                    sortDropdown.classList.add('hidden');
+                    togglers.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+                }
+            });
+
+            const items = sortDropdown.querySelectorAll('.sort-dropdown__item');
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    sortDropdown.classList.add('hidden');
+                    togglers.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+                });
+            });
+        });
+    </script>
+{% endblock %}

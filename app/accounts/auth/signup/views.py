@@ -2,10 +2,11 @@ import random
 import string
 import datetime
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
@@ -17,6 +18,9 @@ from accounts.models import User, RegistrationAttempt
 
 
 def signup_step1(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     old_reg_id = request.session.pop('reg_id', None)
     if old_reg_id:
         RegistrationAttempt.objects.filter(id=old_reg_id).delete()
@@ -36,16 +40,22 @@ def signup_step1(request):
 
             request.session['reg_id'] = str(attempt.id)
 
-            subject = "-"
-            message = (
-                f"hi!\n\n"
-                f":\n\n"
-                f"{code}\n\n"
-                f"6 hrs"
-            )
+            text_body = render_to_string('email/signup/registration_code.txt', {
+                'username': username,
+                'code': code,
+                'site_name': settings.SITE_NAME,
+            })
+            html_body = render_to_string('email/signup/registration_code.html', {
+                'username': username,
+                'code': code,
+                'site_name': settings.SITE_NAME,
+            })
+
+            subject = "Подтверждение регистрации на StepHigher"
             from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [email]
-            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            msg = EmailMultiAlternatives(subject, text_body, from_email, [email])
+            msg.attach_alternative(html_body, "text/html")
+            msg.send()
 
             return redirect('signup_verify')
     else:
@@ -55,6 +65,9 @@ def signup_step1(request):
 
 
 def signup_step2(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     reg_id = request.session.get('reg_id')
 
     if not reg_id:
@@ -101,6 +114,9 @@ def signup_step2(request):
 
 
 def signup_step3(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     reg_id = request.session.get('reg_id')
     if not reg_id:
         messages.error(request, "Сначала введите имя пользователя и email")
@@ -144,8 +160,8 @@ def signup_step3(request):
             attempt.delete()
             request.session.pop('reg_id', None)
 
-            messages.success(request, "Регистрация прошла успешно! Добро пожаловать.")
-            return redirect('home')
+            messages.success(request, "Регистрация прошла успешно! Вы можете войти")
+            return redirect('login')
     else:
         form = Step3Form()
 

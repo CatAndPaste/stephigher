@@ -28,12 +28,12 @@ jobs:
 
       - name: Sync Code
         run: |
-          rsync -az --delete \
+          rsync -az \
             --exclude 'app/media' \
             --exclude '.git/' \
             --exclude '.github/' \
             -e "ssh" ./ ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.REMOTE_DIR }}
-          
+
       - name: Add new media files
         run: |
           rsync -az --ignore-existing \

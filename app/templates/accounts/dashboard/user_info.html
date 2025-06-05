@@ -1,0 +1,81 @@
+<div class="dash-section">
+
+  <form
+    method="post"
+    action="{% url 'dashboard:user_info' %}"
+    class="dash-form"
+    hx-post="{% url 'dashboard:user_info' %}"
+    hx-target="#dashboard-content"
+    hx-swap="innerHTML"
+  >
+    {% csrf_token %}
+
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label>Имя пользователя</label><br>
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="error">{{ form.username.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label>Email</label><br>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="error">{{ form.email.errors }}</div>
+          {% endif %}
+        </div>
+
+        {% if form.fields.email_code.required %}
+          <div class="form-group">
+            {{ form.email_code.label_tag }}<br>
+            {{ form.email_code }}
+            {% if form.email_code.errors %}
+              <div class="error">{{ form.email_code.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="cancel-email-wrapper">
+            <button
+              type="button"
+              class="btn-cancel-email"
+              hx-get="{% url 'dashboard:user_info' %}"
+              hx-target="#dashboard-content"
+              hx-push-url="true"
+              hx-swap="innerHTML"
+            >
+              Отменить смену email
+            </button>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label>Пароль</label><br>
+          {{ form.new_password1 }}
+          {% if form.new_password1.errors %}
+            <div class="error">{{ form.new_password1.errors }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label>Подтвердите пароль</label><br>
+          {{ form.new_password2 }}
+          {% if form.new_password2.errors %}
+            <div class="error">{{ form.new_password2.errors }}</div>
+          {% endif %}
+        </div>
+        <p class="help-text">
+          Если вы не хотите менять пароль, просто оставьте эти поля пустыми
+        </p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-card btn-card--orange dash-btn-submit">
+        Сохранить изменения
+      </button>
+    </div>
+  </form>
+</div>

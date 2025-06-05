@@ -1,0 +1,62 @@
+.dashboard-container {
+  padding: 20px;
+}
+.dashboard-nav {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 6px 12px;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 150%;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.dash-btn:focus {
+  outline: none;
+}
+.dash-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.dash-nav-active {
+  position: relative;
+  color: #FF7A00;
+}
+.dash-nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #FF7A00;
+  border-radius: 50%;
+}
+.dash-btn:not(.dash-nav-active):hover .dash-text {
+  color: #FF7A00;
+}
+.dash-btn:not(.dash-nav-active):hover .dash-icon svg path {
+  stroke: #FF7A00;
+}
+.dash-btn:not(.dash-nav-active):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+.dash-nav-active {
+  cursor: default;
+}
+/*# sourceMappingURL=dashboard.css.map */

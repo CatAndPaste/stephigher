@@ -3,8 +3,6 @@ import datetime
 from django import forms
 from django.contrib.auth.forms import SetPasswordForm
 from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from accounts.models import User
@@ -45,7 +43,7 @@ class Step1Form(forms.Form):
         # latin + cyrillic, spaces, -, _
         if not re.match(r'^[A-Za-zА-Яа-я0-9_\s\-]+$', username):
             raise ValidationError(
-                _("Имя пользователя может содержать только латинские или кириллические буквы, цифры, -, _ и пробелы!"),
+                "Имя пользователя может содержать только латинские или кириллические буквы, цифры, -, _ и пробелы!",
                 code='invalid_username'
             )
 

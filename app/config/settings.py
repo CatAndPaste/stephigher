@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# raw site url
+SITE_NAME = 'raft.tinypaws.space'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -262,6 +265,19 @@ CKEDITOR_5_CONFIGS = {
 
 AUTH_USER_MODEL = 'accounts.User'
 
+# 6-digits code to confirm account creation
 SIGNUP_CODE_EXPIRATION_SECONDS = 6 * 60 * 60    # 6 hrs
+# reset password link
+PASSWORD_RESET_TIMEOUT = 6 * 60 * 60            # 6 hrs
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Debug emailer (shows in console)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# GMAIL SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'alskarru@gmail.com'
+EMAIL_HOST_PASSWORD = 'ezim mcyf bhvp aism'
+DEFAULT_FROM_EMAIL = 'alskarru@gmail.com'

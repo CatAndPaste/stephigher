@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Montserrat, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 18px;
+        }
+
+        h1 {
+            color: #2c1e1a;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #CF711F;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+        }
+
+        .button:hover {
+            background-color: #BF5C05;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Здравствуйте, {{ user.username }}!</h1>
+    <p>Чтобы сбросить пароль, нажмите на кнопку ниже:</p>
+    <p>
+        <a class="button" href="{{ protocol }}://{{ domain }}{% url 'restore_confirm' uidb64=uid token=token %}">
+            Сменить пароль
+        </a>
+    </p>
+    <p>Или скопируйте ссылку и вставьте её в адресную строку вашего браузера:</p>
+    <p style="word-break: break-all;">
+        {{ protocol }}://{{ domain }}{% url 'restore_confirm' uidb64=uid token=token %}
+    </p>
+    <hr>
+    <p>Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо.</p>
+</div>
+</body>
+</html>

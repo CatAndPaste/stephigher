@@ -1,0 +1,187 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="news-detail">
+        <div class="container news-detail__container">
+            <article class="news-detail__article">
+                <h1 class="news-title">{{ post.title }}</h1>
+
+                {% if post.short_description %}
+                    <p class="news-subtitle">{{ post.short_description }}</p>
+                {% endif %}
+
+                <div class="news-meta">
+                    {% for tag in post.tags.all %}
+                        <span class="news-tag">#{{ tag.name }}</span>
+                    {% endfor %}
+                    <span class="news-date">{{ post.published_at|date:"d.m.Y" }}</span>
+                    <span class="news-author">{{ post.author.username }}</span>
+                </div>
+
+                {% if post.image %}
+                    <div class="news-image">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </div>
+                {% endif %}
+
+                <div class="news-body">
+                    {{ post.full_description|safe }}
+                </div>
+            </article>
+
+            <section id="comments-section" class="news-comments">
+                <h3>Комментарии</h3>
+
+                {% if user.is_authenticated %}
+                    <div id="comment-form-block">
+                        <form method="post" action="" id="comment-form">
+                            {% csrf_token %}
+                            {{ comment_form.text }}
+                            <button type="submit">Оставить комментарий</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <p>
+                        <a href="{% url 'login' %}">Войдите</a> чтобы оставить комментарий.
+                    </p>
+                {% endif %}
+
+                <div id="comments-list">
+                    {% include 'news/partials/comments_list.html' with comments=comments %}
+                </div>
+
+                <div
+                        id="comments-pagination-data"
+                        data-page="1"
+                        data-num-pages="{{ comments_num_pages }}"
+                        data-slug="{{ post.slug }}"
+                ></div>
+            </section>
+            {% if recommended_posts %}
+                <section class="latest-news">
+                    <div class="latest-news__container">
+                        <h3 class="latest-news__title">Последние новости</h3>
+
+                        <div class="latest-news__cards">
+                            {% for item in recommended_posts %}
+                                <div class="card latest-news__card item{{ forloop.counter }}">
+                                    <div class="card-img-block latest-news__card-img-block">
+                                        {% if item.image %}
+                                            <img
+                                                    src="{{ item.image.url }}"
+                                                    alt="{{ item.title }}"
+                                                    class="card-img latest-news__card-img"
+                                            >
+                                        {% else %}
+                                            <div class="card-img latest-news__card-img"
+                                                 style="background: #f0f0f0;"></div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-content latest-news__card-content">
+                                        <div class="card-tags hero-block__card-tags">
+                                            {% for tag in item.tags.all %}
+                                                <a
+                                                        href="{% url 'news_list' %}?tag={{ tag.name|urlencode }}"
+                                                        class="card-tag-link hero-block__card-tag-link"
+                                                >
+                                                    #{{ tag.name }}
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+
+                                        <h4 class="card-title latest-news__card-title">
+                                            {{ item.title }}
+                                        </h4>
+
+                                        <p class="card-descr latest-news__card-descr">
+                                            {{ item.short_description|truncatewords:15 }}
+                                        </p>
+
+                                        <a
+                                                href="{% url 'news_detail' item.slug %}"
+                                                class="btn-card btn-card--blue latest-news__card-link"
+                                        >
+                                            <img src="{% static 'images/Frame (1).svg' %}" alt="">
+                                            Читать подробнее
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const commentsList = document.getElementById('comments-list');
+            const paginationData = document.getElementById('comments-pagination-data');
+
+            if (!commentsList || !paginationData) {
+                return;
+            }
+
+            let currentPage = parseInt(paginationData.dataset.page, 10);
+            const numPages = parseInt(paginationData.dataset.numPages, 10);
+            const slug = paginationData.dataset.slug;
+
+            function loadNextComments() {
+                if (currentPage >= numPages) return;
+                const nextPage = currentPage + 1;
+                const url = `{% url 'news_load_more_comments' post.slug %}?page=` + nextPage;
+
+                fetch(url, {
+                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.html) {
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = data.html;
+                            while (tempDiv.firstChild) {
+                                commentsList.appendChild(tempDiv.firstChild);
+                            }
+                            currentPage = nextPage;
+                        }
+                    })
+                    .catch(err => console.error('Ошибка при подгрузке комментариев:', err));
+            }
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadNextComments();
+                    }
+                });
+            }, observerOptions);
+
+            function observeLastComment() {
+                const allComments = commentsList.querySelectorAll('.comment-item');
+                if (allComments.length) {
+                    const lastComment = allComments[allComments.length - 1];
+                    observer.observe(lastComment);
+                }
+            }
+
+            observeLastComment();
+
+            const mutationObserver = new MutationObserver(() => {
+                observer.disconnect();
+                observeLastComment();
+            });
+            mutationObserver.observe(commentsList, {childList: true});
+        });
+    </script>
+{% endblock %}

@@ -8,7 +8,16 @@
 {% include 'hhf/head.html' %}
 
 <body>
-
+<!-- toasts for Django messages -->
+<div id="toast-container">
+    {% for message in messages %}
+        <div class="toast {{ message.tags }}">
+            <button class="close-btn" onclick="closeToast(this)">×</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+<!-- end toasts -->
 
 {% include 'hhf/header.html' %}
 
@@ -21,10 +30,45 @@
 {% include 'hhf/footer.html' %}
 
 {% block js_script %}
-
 {% endblock %}
-
 <script src="{% static 'js/mobile_menu.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toasts = document.querySelectorAll('#toast-container .toast');
+        toasts.forEach(function (toast, index) {
+            setTimeout(function () {
+                toast.classList.add('show');
+            }, 100 + index * 100);
 
+            setTimeout(function () {
+                hideToast(toast);
+            }, 30000 + index * 200);
+        });
+    });
+
+    function hideToast(toast) {
+        toast.classList.remove('show');
+        setTimeout(function () {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+
+    function closeToast(btn) {
+        const toast = btn.parentElement;
+        hideToast(toast);
+    }
+</script>
+{# we make sure, htmx won't return partial content while moving through browser history (back and forward) #}
+<script>
+  document.body.addEventListener('htmx:beforeRequest', function(evt) {
+    var target = document.querySelector(evt.detail.target);
+    if (!target) {
+      evt.detail.shouldAbort = true;
+      window.location.href = evt.detail.path;
+    }
+  });
+</script>
 </body>
 </html>

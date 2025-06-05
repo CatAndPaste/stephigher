@@ -2,10 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django_ckeditor_5.fields import CKEditor5Field
 from filer.fields.image import FilerImageField
+from django.utils import timezone
 
 from pages.models import SeoMixin
-
-# Create your models here.
 
 User = get_user_model()
 
@@ -44,3 +43,28 @@ class BlogPost(SeoMixin, models.Model):
 
     def total_likes(self):
         return self.liked_by.count()
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        'BlogPost',
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name='Пост'
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='blog_comments',
+        verbose_name='Автор'
+    )
+    text = models.TextField(verbose_name='Текст комментария')
+    created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата и время')
+
+    class Meta:
+        ordering = ['-created_at']  # От самых свежих к старым
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return f'Комментарий {self.author} к посту "{self.post}"'
