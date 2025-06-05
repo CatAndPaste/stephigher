@@ -53,6 +53,34 @@ class BlogListView(SeoContextMixin, ListView):
         ctx['filter_by_tag'] = self.request.GET.get('tag', '')
         # TODO: add tags list
         ctx['all_tags'] = Tag.objects.all().order_by('name')
+
+        # pages my pages
+        page_obj = ctx.get('page_obj')
+        if page_obj is not None:
+            total = page_obj.paginator.num_pages
+            current = page_obj.number
+
+            def build_page_sequence(current, total):
+                if total <= 1:
+                    return [1]
+                left_bound = 3
+                right_bound = total - 2
+
+                if current <= left_bound:
+                    seq = list(range(1, left_bound + 2)) + ['...', total]
+                elif current >= right_bound:
+                    seq = [1, '...'] + list(range(right_bound - 1, total + 1))
+                else:
+                    seq = [1, '...', current - 1, current, current + 1, '...', total]
+
+                if len(seq) >= total:
+                    return list(range(1, total + 1))
+                return seq
+
+            ctx['page_sequence'] = build_page_sequence(current, total)
+        else:
+            ctx['page_sequence'] = []
+
         return ctx
 
 

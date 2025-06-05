@@ -64,3 +64,168 @@
     }
   }
 }
+
+/* === СОРТИРОВОЧКА === */
+
+.sort-button-icon {
+  display: inline-flex;
+  padding: 0;
+  width: 57.11px;
+  height: 44px;
+  background: #FFFFFF;
+  border-radius: 61px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  svg {
+    display: block;
+    width: auto;
+    height: auto;
+  }
+
+  &:hover,
+  &:active {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.sort-button-full {
+  display: none;
+
+  img {
+    padding: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sort-button-icon {
+    display: none;
+  }
+
+  .sort-button-full {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.sort-form {
+  position: relative;
+  display: inline-block;
+}
+
+.sort-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.sort-dropdown__item {
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  overflow: hidden;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.sort-dropdown__item--active {
+  background: #fff0e6;
+  font-weight: bold;
+}
+
+.sort-dropdown__item--blue--active {
+  background: #e6f0ff;
+  font-weight: bold;
+}
+
+/* pagination */
+.pagination {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.pagination-numbers {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #FF7A00;
+  cursor: default;
+  user-select: none;
+
+  &--blue {
+    color: #2A5BCC !important;
+  }
+}
+
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: #FF7A00;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+    &--blue {
+    color: #2A5BCC !important;
+  }
+}
+
+.page-link:hover {
+  background: #f0f8ff;
+}
+
+.pagination-ellipsis {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: #FF7A00;
+  cursor: default;
+  user-select: none;
+
+  &--blue {
+    color: #2A5BCC !important;
+  }
+}

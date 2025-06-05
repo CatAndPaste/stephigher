@@ -293,6 +293,147 @@ body {
     padding: 10px 15px;
   }
 }
+/* === СОРТИРОВОЧКА === */
+.sort-button-icon {
+  display: inline-flex;
+  padding: 0;
+  width: 57.11px;
+  height: 44px;
+  background: #FFFFFF;
+  border-radius: 61px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sort-button-icon svg {
+  display: block;
+  width: auto;
+  height: auto;
+}
+.sort-button-icon:hover,
+.sort-button-icon:active {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.sort-button-full {
+  display: none;
+}
+.sort-button-full img {
+  padding: 0 !important;
+}
+@media (min-width: 1024px) {
+  .sort-button-icon {
+    display: none;
+  }
+  .sort-button-full {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+.sort-form {
+  position: relative;
+  display: inline-block;
+}
+.sort-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.hidden {
+  display: none !important;
+}
+.sort-dropdown__item {
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  overflow: hidden;
+}
+.sort-dropdown__item:hover {
+  background: #f5f5f5;
+}
+.sort-dropdown__item--active {
+  background: #fff0e6;
+  font-weight: bold;
+}
+.sort-dropdown__item--blue--active {
+  background: #e6f0ff;
+  font-weight: bold;
+}
+/* pagination */
+.pagination {
+  margin-top: 24px;
+  text-align: center;
+}
+.pagination-numbers {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.page-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: #FF7A00;
+  cursor: default;
+  user-select: none;
+}
+.page-current--blue {
+  color: #2A5BCC !important;
+}
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: #FF7A00;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.page-link--blue {
+  color: #2A5BCC !important;
+}
+.page-link:hover {
+  background: #f0f8ff;
+}
+.pagination-ellipsis {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: #FF7A00;
+  cursor: default;
+  user-select: none;
+}
+.pagination-ellipsis--blue {
+  color: #2A5BCC !important;
+}
 .card {
   border-radius: 20px;
   background: #433F3B;
@@ -665,6 +806,14 @@ body {
     grid-template-areas: "item1" "item2" "item3";
   }
 }
+.latest-news__catalog_header,
+.blog-list__catalog_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
 .latest-news {
   margin-bottom: 60px;
 }
@@ -785,5 +934,168 @@ body {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 30px;
+}
+.dashboard-container {
+  padding: 20px;
+}
+.dashboard-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 6px 12px;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 150%;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.dash-btn:focus {
+  outline: none;
+}
+.dash-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.dash-nav-active {
+  /* TODO: fix active tab when htmx-ing around */
+}
+.dash-btn:hover .dash-text {
+  /* .dash-btn:not(.dash-nav-active):hover */
+  color: #f2f2f2;
+  text-decoration: underline;
+}
+.dash-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #FFFFFF;
+  padding: 20px;
+}
+.dash-form {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-group .error {
+  width: 100%;
+  color: #FF6B6B;
+  font-size: 14px;
+  margin-top: 4px;
+  text-align: center;
+}
+.form-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.dash-btn-submit {
+  width: 100%;
+  max-width: 426px;
+  height: 64px;
+  padding: 0;
+}
+.form-row {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  justify-content: center;
+}
+.form-row .col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.form-group label {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  margin-bottom: -8px;
+}
+.form-group input {
+  box-sizing: border-box;
+  width: 426px;
+  height: 64px;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+  border-radius: 25px;
+  background: transparent;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0;
+  padding: 0 16px;
+}
+.help-text {
+  font-size: 12px;
+  color: #AAAAAA;
+  text-align: center;
+  margin-top: -12px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.btn-cancel-email {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  background: #808080;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-bottom: 20px;
+}
+.btn-cancel-email:hover {
+  background: #666666;
+}
+.form-group-settings {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.form-group-settings input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.form-group-settings label {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main.css.map */

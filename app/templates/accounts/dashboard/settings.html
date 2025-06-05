@@ -1,6 +1,4 @@
 <div class="dash-section">
-  <h2>Настройки</h2>
-
   <form
     method="post"
     action="{% url 'dashboard:settings' %}"
@@ -11,15 +9,16 @@
   >
     {% csrf_token %}
 
-    <div class="form-group">
-      {{ form.email_subscriber }} {{ form.email_subscriber.label_tag }}
+    <div class="form-group-settings">
+      {{ form.email_subscriber }}
+      {{ form.email_subscriber.label_tag }}
       {% if form.email_subscriber.errors %}
         <div class="error">{{ form.email_subscriber.errors }}</div>
       {% endif %}
     </div>
 
-    <div style="margin-top: 20px;">
-      <button type="submit" class="btn-save">
+    <div class="form-actions">
+      <button type="submit" class="btn-card btn-card--orange dash-btn-submit">
         Сохранить изменения
       </button>
     </div>
