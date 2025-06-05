@@ -1286,7 +1286,7 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.form-group .error {
+.dash-group .error {
   width: 100%;
   color: #FF6B6B;
   font-size: 14px;
@@ -1318,14 +1318,14 @@ body {
   align-items: center;
   gap: 10px;
 }
-.form-group {
+.dash-group {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 20px;
 }
-.form-group label {
+.dash-group label {
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
@@ -1333,7 +1333,7 @@ body {
   color: #FFFFFF;
   margin-bottom: -8px;
 }
-.form-group input {
+.dash-group input {
   box-sizing: border-box;
   width: 426px;
   height: 64px;
@@ -1373,7 +1373,7 @@ body {
 .btn-cancel-email:hover {
   background: #666666;
 }
-.form-group-settings {
+.dash-group-settings {
   width: 100%;
   display: flex;
   align-items: center;
@@ -1381,12 +1381,12 @@ body {
   gap: 12px;
   margin-bottom: 16px;
 }
-.form-group-settings input[type="checkbox"] {
+.dash-group-settings input[type="checkbox"] {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
-.form-group-settings label {
+.dash-group-settings label {
   font-weight: 500;
   font-size: 16px;
   line-height: 1;

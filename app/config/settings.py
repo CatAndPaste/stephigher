@@ -96,14 +96,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': 'BASE3',
-        'USER': 'postgres',
-        'PASSWORD': 'ROOT',
+        'NAME': 'raftdb',
+        'USER': 'raft',
+        'PASSWORD': 'rafter',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5435',         # custom port (5432 -> 5435) for test server (5432 is already allocated)
     }
 }
-
 
 AUTHENTICATION_BACKENDS = [
     'accounts.auth.login.backend.AuthBackend',

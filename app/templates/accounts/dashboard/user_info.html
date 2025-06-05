@@ -12,14 +12,14 @@
 
     <div class="form-row">
       <div class="col">
-        <div class="form-group">
+        <div class="dash-group">
           <label>Имя пользователя</label><br>
           {{ form.username }}
           {% if form.username.errors %}
             <div class="error">{{ form.username.errors }}</div>
           {% endif %}
         </div>
-        <div class="form-group">
+        <div class="dash-group">
           <label>Email</label><br>
           {{ form.email }}
           {% if form.email.errors %}
@@ -28,7 +28,7 @@
         </div>
 
         {% if form.fields.email_code.required %}
-          <div class="form-group">
+          <div class="dash-group">
             {{ form.email_code.label_tag }}<br>
             {{ form.email_code }}
             {% if form.email_code.errors %}
@@ -52,14 +52,14 @@
       </div>
 
       <div class="col">
-        <div class="form-group">
+        <div class="dash-group">
           <label>Пароль</label><br>
           {{ form.new_password1 }}
           {% if form.new_password1.errors %}
             <div class="error">{{ form.new_password1.errors }}</div>
           {% endif %}
         </div>
-        <div class="form-group">
+        <div class="dash-group">
           <label>Подтвердите пароль</label><br>
           {{ form.new_password2 }}
           {% if form.new_password2.errors %}
