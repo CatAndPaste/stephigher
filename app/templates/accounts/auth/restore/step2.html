@@ -50,16 +50,15 @@
                             <button type="submit">Сменить пароль</button>
                         </div>
 
-                        {{ form.non_field_errors }}
+
+                        {% if form.non_field_errors %}
+                            <div>
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
         </div>
-
-        {% if form.non_field_errors %}
-            <div>
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

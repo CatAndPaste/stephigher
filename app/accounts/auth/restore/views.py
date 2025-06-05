@@ -75,32 +75,7 @@ class RestorePasswordStep2View(PasswordResetConfirmView):
         if request.user.is_authenticated:
             return redirect('/')
 
-        try:
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = User._default_manager.get(pk=uid)
-        except Exception:
-            user = None
-
-        if token == 'set-password':
-            stored_uid = request.session.get('password_reset_uid')
-            if stored_uid is None or str(stored_uid) != str(uid):
-                messages.error(request, "Ссылка для сброса пароля устарела или неверна")
-                return redirect('restore')
-            return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
-
-        if user is None or not default_token_generator.check_token(user, token):
-            messages.error(
-                request,
-                "Недействительная ссылка для сброса пароля! "
-                "Пожалуйста, проверьте, что вы скопировали ссылку полностью или попробуйте ещё раз"
-            )
-            return redirect('restore')
-
-        request.session['password_reset_uid'] = uid
-        return redirect(reverse('restore_confirm', kwargs={
-            'uidb64': uidb64,
-            'token': 'set-password'
-        }))
+        return super().dispatch(request, uidb64=uidb64, token=token, *args, **kwargs)
 
 
 class RestorePasswordStep2DoneView(PasswordResetCompleteView):
