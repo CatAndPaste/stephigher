@@ -13,24 +13,19 @@
 
                 <div class="blog-post-meta">
                     {% if post.tags.exists %}
-                        <span class="blog-post-meta-label">Теги:</span>
                         {% for tag in post.tags.all %}
                             <a
                                     href="{% url 'blog_list' %}?tag={{ tag.name|urlencode }}"
                                     class="blog-post-tag"
-                            >
-                                #{{ tag.name }}
-                            </a>
+                            >#{{ tag.name }}</a>
                         {% endfor %}
-                        <br>
                     {% endif %}
-
-                    <span class="blog-post-date">
-            {{ post.published_at|date:"d.m.Y" }}
-          </span>
-                    <span class="blog-post-author">
-            Автор: {{ post.author.username }}
-          </span>
+                    <span class="blog-post-date"><img src="{% static 'images/post/calendar.svg' %}"
+                                                      alt="Календарь"
+                                                      class="icon-small"> {{ post.published_at|date:"d.m.Y" }}</span>
+                    <span class="blog-post-author"><img src="{% static 'images/post/author.svg' %}"
+                                                        alt="Автор"
+                                                        class="icon-small"> {{ post.author.username }}</span>
                 </div>
 
                 {% if post.image %}
@@ -44,8 +39,14 @@
                 </div>
             </article>
 
+            <a href="#" class="btn-card btn-card--blue latest-news__card-link"
+               style="display: flex; justify-self: center; margin-top: 30px; margin-bottom: 30px;">
+                <img src="/static/images/post/share.svg" alt="">
+                Поделиться
+            </a>
+
             <section id="comments-section" class="news-comments">
-                <h3>Комментарии</h3>
+                <h3 id="comments">Комментарии</h3>
 
                 {% if user.is_authenticated %}
                     <div id="comment-form-block">
@@ -68,6 +69,10 @@
                 <div id="comments-list">
                     {% include 'blog/partials/comments_list.html' with comments=comments %}
                 </div>
+
+                <button id="load-more-comments" class="post-other-btn" style="display: none;">
+                    Показать ещё
+                </button>
 
                 <div
                         id="comments-pagination-data"
@@ -98,7 +103,7 @@
                                     </div>
 
                                     <div class="card-content hero-block__card-content">
-                                        <div class="card-tags hero-block__card-tags">
+                                        <div class="card-tags hero-block__card-tags" style="gap: 4px; display: flex;">
                                             {% if item.tags.exists %}
                                                 {% for tag in item.tags.all %}
                                                     <a
@@ -143,17 +148,19 @@
         document.addEventListener('DOMContentLoaded', function () {
             const commentsList = document.getElementById('comments-list');
             const paginationData = document.getElementById('comments-pagination-data');
+            const loadMoreBtn = document.getElementById('load-more-comments');
 
-            if (!commentsList || !paginationData) {
-                return;
-            }
+            if (!commentsList || !paginationData) return;
 
             let currentPage = parseInt(paginationData.dataset.page, 10);
             const numPages = parseInt(paginationData.dataset.numPages, 10);
             const slug = paginationData.dataset.slug;
 
             function loadNextComments() {
-                if (currentPage >= numPages) return;
+                if (currentPage >= numPages) {
+                    if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                    return;
+                }
                 const nextPage = currentPage + 1;
                 const url = `{% url 'blog_post_load_comments' post.slug %}?page=` + nextPage;
 
@@ -169,40 +176,77 @@
                                 commentsList.appendChild(tempDiv.firstChild);
                             }
                             currentPage = nextPage;
+                            if (currentPage >= numPages && loadMoreBtn) {
+                                loadMoreBtn.style.display = 'none';
+                            }
+                            observeLastComment();
                         }
                     })
                     .catch(err => console.error('Ошибка при подгрузке комментариев:', err));
             }
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 1.0
-            };
+            let observer;
+            let intersectionTriggered = false;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadNextComments();
-                    }
-                });
-            }, observerOptions);
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px 0px 200px 0px',
+                    threshold: 0
+                };
+
+                observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            intersectionTriggered = true;
+                            loadNextComments();
+                        }
+                    });
+                }, observerOptions);
+            }
 
             function observeLastComment() {
+                if (!observer) return;
+                observer.disconnect();
                 const allComments = commentsList.querySelectorAll('.comment-item');
-                if (allComments.length) {
-                    const lastComment = allComments[allComments.length - 1];
-                    observer.observe(lastComment);
+                if (allComments.length === 0) return;
+                const lastComment = allComments[allComments.length - 1];
+                observer.observe(lastComment);
+            }
+
+            setTimeout(() => {
+                if (!intersectionTriggered) {
+                    if (currentPage < numPages && loadMoreBtn) {
+                        loadMoreBtn.style.display = 'block';
+                    }
+                }
+            }, 3000);
+
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function () {
+                    loadMoreBtn.style.display = 'none'; // пока грузим — скрываем кнопку
+                    loadNextComments();
+                });
+            }
+
+            if (observer) {
+                observeLastComment();
+            } else {
+                if (currentPage < numPages && loadMoreBtn) {
+                    loadMoreBtn.style.display = 'block';
                 }
             }
 
-            observeLastComment();
+            const textarea = document.querySelector('#comment-form textarea');
+            if (textarea) {
+                function autoResize() {
+                    this.style.height = 'auto';
+                    this.style.height = this.scrollHeight + 'px';
+                }
 
-            const mutationObserver = new MutationObserver(() => {
-                observer.disconnect();
-                observeLastComment();
-            });
-            mutationObserver.observe(commentsList, {childList: true});
+                autoResize.call(textarea);
+                textarea.addEventListener('input', autoResize);
+            }
         });
     </script>
 {% endblock %}

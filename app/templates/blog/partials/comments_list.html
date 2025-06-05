@@ -1,25 +1,39 @@
+{% load static %}
+
 {% for comment in comments %}
-  <div class="comment-item" style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e0e0e0;">
-    <div class="comment-header">
-      <strong class="comment-author">{{ comment.author.username }}</strong>
-      <span class="comment-date" style="color: #777; font-size: 0.9em;">
+  <div class="comment-item">
+    <p class="comment-text">
+      {{ comment.text }}
+    </p>
+    <div class="comment-meta">
+      <span class="comment-date">
+        <img
+          src="{% static 'images/post/calendar.svg' %}"
+          alt="Календарь"
+          class="icon-small"
+        >
         {{ comment.created_at|date:"d.m.Y H:i" }}
+      </span>
+      <span class="comment-author">
+        <img
+          src="{% static 'images/post/author.svg' %}"
+          alt="Автор"
+          class="icon-small"
+        >
+        {{ comment.author.username }}
       </span>
       {% if user.is_authenticated and user == comment.author %}
         <form
           method="post"
           action="{% url 'blog_post_delete_comment' comment.id %}"
-          style="display: inline; margin-left: 12px;"
+          style="display: inline;"
         >
           {% csrf_token %}
-          <button type="submit" style="background: none; border: none; color: #c00; cursor: pointer;">
+          <button type="submit" class="comment-delete-button">
             Удалить
           </button>
         </form>
       {% endif %}
-    </div>
-    <div class="comment-text" style="margin-top: 4px; white-space: pre-wrap;">
-      {{ comment.text }}
     </div>
   </div>
 {% empty %}
