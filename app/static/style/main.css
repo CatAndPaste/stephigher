@@ -1561,6 +1561,9 @@ body {
   .auth-page .auth-right {
     gap: 20px;
   }
+  .auth-page .auth-right form .form-group {
+    max-width: 426px;
+  }
   .auth-page .auth-right .form-container {
     width: 100%;
   }
@@ -1642,6 +1645,7 @@ body {
   }
   .auth-page .auth-right form .form-group {
     margin-bottom: 16px;
+    max-width: unset;
   }
   .auth-page .auth-right form .form-group button {
     width: unset;
