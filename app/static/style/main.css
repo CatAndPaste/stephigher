@@ -528,7 +528,7 @@ body {
 .header__mobile {
   display: none;
 }
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .header__mobile {
     display: block;
   }
@@ -543,7 +543,7 @@ body {
   cursor: pointer;
   padding: 0;
 }
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .header__burger {
     display: flex;
     flex-direction: column;
@@ -615,7 +615,7 @@ body {
   color: #CF711F;
   background: white;
 }
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .header__menu,
   .header__btn-block {
     display: none;

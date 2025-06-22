@@ -11,9 +11,9 @@
 
 
   &__mobile {
-    display: none; // По умолчанию скрыто
+    display: none;
 
-    @media (max-width: 992px) {
+    @media (max-width: 1024px) {
       display: block;
     }
   }
@@ -28,7 +28,7 @@
     cursor: pointer;
     padding: 0;
 
-    @media (max-width: 992px) {
+    @media (max-width: 1024px) {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -112,7 +112,7 @@
   }
 
   // Скрываем десктопные элементы на мобилках
-  @media (max-width: 992px) {
+  @media (max-width: 1024px) {
     &__menu,
     &__btn-block {
       display: none;
