@@ -10,9 +10,9 @@ from pages.utils.mixins import SeoContextMixin
 # Create your views here.
 class HomePageView(SeoContextMixin, TemplateView):
     template_name = 'index.html'
-    seo_title = 'Главная страница — StepHigher'
-    seo_description = 'Читайте популярные статьи и свежие новости на StepHigher'
-    seo_keywords = 'статьи, новости, StepHigher, блог, технологии'
+    seo_title = 'Главная страница — RaftLab'
+    seo_description = 'Читайте популярные статьи и свежие новости на RaftLab'
+    seo_keywords = 'статьи, новости, StepHigher, RaftLab, блог, технологии'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

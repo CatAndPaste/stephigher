@@ -36,7 +36,10 @@
       gap: 118px;
 
       .logo {
-        width: 300px;
+        width: 240px;
+      }
+
+      .logo-link {
         margin-bottom: 30px;
       }
 
@@ -56,6 +59,32 @@
     display: flex;
     flex-direction: column;
     gap: 153px;
+
+    /* checkbox position fix: flex-row + fix checkbox input size */
+
+    .form-group.element-3 {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+    }
+
+    .form-group {
+      label {
+        margin: 0;
+        flex: 1 1 auto;
+      }
+    }
+
+    /* end checkbox */
 
     .reset-password-header {
       display: flex;
@@ -258,21 +287,9 @@
 }
 
 // === Адаптив ===
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .auth-page {
-    flex-direction: column;
-
-    .auth-left,
-    .auth-right {
-      flex: none;
-      width: 100%;
-      padding: 40px 30px;
-
-    }
-
     .auth-left {
-      padding-top: 30px;
-
       .content-block {
         gap: 60px;
 
@@ -285,11 +302,54 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .auth-page {
+    flex-direction: column;
 
     .auth-right {
-      align-items: center;
-      gap: 80px;
+      gap: 20px;
 
+      .form-container {
+        width: 100%;
+      }
+
+      .reset-password-header {
+        gap: 20px;
+
+        .step-info {
+          display: inline-block;
+          text-align: right;
+
+          .step-count,
+          .step-title {
+            display: block;
+          }
+
+          .step-title {
+            white-space: normal;
+            word-break: break-word;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+
+    .auth-left,
+    .auth-right {
+      flex: none;
+      width: 100%;
+      padding: 40px 30px;
+
+    }
+
+    .auth-left {
+      padding-top: 30px;
+    }
+
+    .auth-right {
       .form-wrapper {
         justify-content: flex-start;
       }
@@ -297,10 +357,8 @@
       form {
         align-items: center;
 
-        input,
-        button {
-          width: 100%;
-          max-width: 400px;
+        .form-group.forgot-password {
+          align-self: center;
         }
       }
     }
@@ -351,13 +409,15 @@
   .auth-page {
 
     .auth-right {
-      gap: 40px;
+      gap: 10px;
 
       .form-wrapper {
         padding: 0;
       }
 
       form {
+        align-items: stretch;
+
         input,
         button {
           width: 100%;
@@ -367,6 +427,11 @@
 
         .form-group {
           margin-bottom: 16px;
+
+          button {
+            width: unset;
+          }
+
         }
 
         .register {

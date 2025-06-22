@@ -162,6 +162,14 @@ body {
   font-style: normal;
   font-display: swap;
 }
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 body {
   font-family: 'Montserrat', -apple-system, sans-serif;
   color: #ffffff;
@@ -256,6 +264,8 @@ body {
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
   transition: all 0.3s ease;
   /* ========== МОДИФИКАТОР ЦВЕТА ========== */
   /* ========== СТИЛИ ДЛЯ ИКОНКИ ========== */
@@ -280,6 +290,7 @@ body {
   background: #FFF;
   padding: 12px 18px;
   transition: all 0.3s ease;
+  flex-shrink: 0;
   display: block;
   width: auto;
   height: auto;
@@ -321,6 +332,15 @@ body {
 }
 .sort-button-full img {
   padding: 0 !important;
+}
+.sort-dropdown__item svg {
+  display: inline-block;
+  margin-top: -2px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  fill: currentColor;
 }
 @media (min-width: 1024px) {
   .sort-button-icon {
@@ -435,6 +455,8 @@ body {
   color: #2A5BCC !important;
 }
 .card {
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   background: #433F3B;
 }
@@ -455,9 +477,19 @@ body {
   cursor: pointer;
 }
 .card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 30px;
 }
+.card-content .btn-card {
+  margin-top: auto;
+  align-self: flex-start;
+}
 .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 12px;
 }
 .card-tag-link {
@@ -529,7 +561,8 @@ body {
   position: fixed;
   top: 0;
   left: -100%;
-  width: 80%;
+  width: 80vw;
+  max-width: calc(100vw - 70px);
   height: 100vh;
   background: #fff;
   z-index: 1000;
@@ -728,18 +761,22 @@ body {
   .footer__container {
     flex-wrap: wrap;
     gap: 30px;
-  }
-  .footer__container .footer__col {
-    flex: 1 1 45%;
+    /*
+      .footer__col {
+        flex: 1 1 45%; // 2 колонки в строку
+      }
+      */
   }
 }
 @media (max-width: 767px) {
   .footer__container {
     flex-direction: column;
     gap: 20px;
-  }
-  .footer__container .footer__col {
-    flex: 1 1 100%;
+    /*
+      .footer__col {
+        flex: 1 1 100%;
+      }
+      */
   }
   .footer__bottom {
     font-size: 12px;
@@ -899,17 +936,24 @@ body {
 }
 .popular-articles__cards {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   padding-bottom: 10px;
+}
+.popular-articles__cards .popular-articles__card {
+  flex: 0 1 calc((100% - 40px) / 3);
 }
 .popular-articles__card .card-img {
   width: 100%;
   object-fit: cover;
   border-radius: 25px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .popular-articles__cards .popular-articles__card {
     flex: 0 1 calc((100% - 20px) / 2);
+  }
+  .popular-articles__cards .popular-articles__card:nth-child(3) {
+    flex: 0 0 100%;
   }
 }
 @media (max-width: 767px) {
@@ -919,6 +963,19 @@ body {
   .popular-articles__cards .popular-articles__card {
     flex: 1 1 100%;
   }
+}
+.ad-banner {
+  width: 100%;
+}
+.ad-banner__link {
+  display: block;
+}
+.ad-banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  cursor: pointer;
 }
 .news-detail article {
   color: #FFF;
@@ -1285,7 +1342,9 @@ body {
   gap: 118px;
 }
 .auth-page .auth-left .content-block .logo {
-  width: 300px;
+  width: 240px;
+}
+.auth-page .auth-left .content-block .logo-link {
   margin-bottom: 30px;
 }
 .auth-page .auth-left .content-block h1 {
@@ -1301,6 +1360,23 @@ body {
   display: flex;
   flex-direction: column;
   gap: 153px;
+  /* checkbox position fix: flex-row + fix checkbox input size */
+  /* end checkbox */
+}
+.auth-page .auth-right .form-group.element-3 {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.auth-page .auth-right .form-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.auth-page .auth-right .form-group label {
+  margin: 0;
+  flex: 1 1 auto;
 }
 .auth-page .auth-right .reset-password-header {
   display: flex;
@@ -1467,9 +1543,42 @@ body {
   text-decoration: underline;
   font-weight: 500;
 }
+@media (max-width: 1150px) {
+  .auth-page .auth-left .content-block {
+    gap: 60px;
+  }
+  .auth-page .auth-left .content-block .logo {
+    width: 240px;
+  }
+  .auth-page .auth-left .content-block h1 {
+    font-size: 48px;
+  }
+}
 @media (max-width: 1024px) {
   .auth-page {
     flex-direction: column;
+  }
+  .auth-page .auth-right {
+    gap: 20px;
+  }
+  .auth-page .auth-right .form-container {
+    width: 100%;
+  }
+  .auth-page .auth-right .reset-password-header {
+    gap: 20px;
+  }
+  .auth-page .auth-right .reset-password-header .step-info {
+    display: inline-block;
+    text-align: right;
+  }
+  .auth-page .auth-right .reset-password-header .step-info .step-count,
+  .auth-page .auth-right .reset-password-header .step-info .step-title {
+    display: block;
+  }
+  .auth-page .auth-right .reset-password-header .step-info .step-title {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
   }
   .auth-page .auth-left,
   .auth-page .auth-right {
@@ -1480,29 +1589,14 @@ body {
   .auth-page .auth-left {
     padding-top: 30px;
   }
-  .auth-page .auth-left .content-block {
-    gap: 60px;
-  }
-  .auth-page .auth-left .content-block .logo {
-    width: 240px;
-  }
-  .auth-page .auth-left .content-block h1 {
-    font-size: 48px;
-  }
-  .auth-page .auth-right {
-    align-items: center;
-    gap: 80px;
-  }
   .auth-page .auth-right .form-wrapper {
     justify-content: flex-start;
   }
   .auth-page .auth-right form {
     align-items: center;
   }
-  .auth-page .auth-right form input,
-  .auth-page .auth-right form button {
-    width: 100%;
-    max-width: 400px;
+  .auth-page .auth-right form .form-group.forgot-password {
+    align-self: center;
   }
 }
 @media (max-width: 768px) {
@@ -1532,10 +1626,13 @@ body {
 }
 @media (max-width: 480px) {
   .auth-page .auth-right {
-    gap: 40px;
+    gap: 10px;
   }
   .auth-page .auth-right .form-wrapper {
     padding: 0;
+  }
+  .auth-page .auth-right form {
+    align-items: stretch;
   }
   .auth-page .auth-right form input,
   .auth-page .auth-right form button {
@@ -1545,6 +1642,9 @@ body {
   }
   .auth-page .auth-right form .form-group {
     margin-bottom: 16px;
+  }
+  .auth-page .auth-right form .form-group button {
+    width: unset;
   }
   .auth-page .auth-right form .register {
     flex-direction: column;
@@ -1718,4 +1818,3 @@ body {
   color: #FFFFFF;
   cursor: pointer;
 }
-/*# sourceMappingURL=main.css.map */

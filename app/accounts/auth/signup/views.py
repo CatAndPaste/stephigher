@@ -51,7 +51,7 @@ def signup_step1(request):
                 'site_name': settings.SITE_NAME,
             })
 
-            subject = "Подтверждение регистрации на StepHigher"
+            subject = "Подтверждение регистрации на RaftLab"
             from_email = settings.DEFAULT_FROM_EMAIL
             msg = EmailMultiAlternatives(subject, text_body, from_email, [email])
             msg.attach_alternative(html_body, "text/html")

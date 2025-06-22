@@ -1,6 +1,6 @@
 Здравствуйте, {{ user.username }}!
 
-Вы запросили сброс пароля на raft.tinypaws.space.
+Вы запросили сброс пароля на {{ site_name }}.
 Чтобы сбросить пароль, перейдите по ссылке:
 {{ protocol }}://{{ domain }}{% url 'restore_confirm' uidb64=uid token=token %}
 

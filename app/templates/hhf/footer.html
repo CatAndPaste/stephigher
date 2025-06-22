@@ -5,7 +5,9 @@
     <div class="container footer__container">
         <div class="footer__content">
             <div class="footer__col footer__col--logo">
-                <img src="{% static 'images/logo.svg' %}" alt="StepHigher" class="footer__logo"/>
+                <a href="{% url 'home' %}" class="header__logo-link">
+                    <img src="{% static 'images/logo.png' %}" alt="RaftLab" class="footer__logo"/>
+                </a>
                 <p>ИП Самуйленко А. В.</p>
                 <p>ИНН: 056545499449</p>
                 <p>ОГРНИП: 323656700248058</p>
@@ -19,10 +21,13 @@
                 <div class="footer__col">
                     <h4>Меню</h4>
                     <ul>
-                        <li><a href="#">Главная</a></li>
-                        <li><a href="#">Статьи</a></li>
-                        <li><a href="#">Новости</a></li>
-                        <li><a href="#">Личный кабинет</a></li>
+                        <li><a href="{% url 'home' %}">Главная</a></li>
+                        <li><a href="{% url 'blog_list' %}">Статьи</a></li>
+                        <li><a href="{% url 'news_list' %}">Новости</a></li>
+                        <li><a href="{% if user.is_authenticated %}
+                            {% url 'dashboard:user_info' %}{% else %}
+                            {% url 'login' %}
+                            {% endif %}">Личный кабинет</a></li>
                     </ul>
                 </div>
 
@@ -38,9 +43,13 @@
                 <div class="footer__col">
                     <h4>Контакты</h4>
                     <ul class="footer__contacts">
-                        <li><span>📍</span> г. Ростов-на-Дону</li>
-                        <li><span>📞</span> 8 (800) 000-57-11</li>
-                        <li><span>📞</span> 8 (900) 000-33-99</li>
+                        <li><span>📍</span> <a
+                                href="https://yandex.com/maps/geo/rostov_na_donu/53166035/?ll=39.738498%2C47.223138&z=13.17"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                        >г. Ростов-на-Дону</a></li>
+                        <li><span>📞</span> <a href="tel:88000005711">8 (800) 000-57-11</a></li>
+                        <li><span>📞</span> <a href="tel:89000003399">8 (900) 000-33-99</a></li>
                         <li><a href="mailto:tema@gmail.com">tema@gmail.com</a></li>
                     </ul>
                 </div>

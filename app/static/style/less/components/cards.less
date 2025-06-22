@@ -1,4 +1,6 @@
 .card {
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   background: #433F3B;
 
@@ -23,10 +25,21 @@
   }
 
   &-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 30px;
+
+    .btn-card {
+      margin-top: auto;
+      align-self: flex-start;
+    }
   }
 
   &-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 12px;
   }
 

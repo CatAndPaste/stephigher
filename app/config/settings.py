@@ -100,7 +100,7 @@ DATABASES = {
         'USER': 'raft',
         'PASSWORD': 'rafter',
         'HOST': 'localhost',
-        'PORT': '5435',         # custom port (5432 -> 5435) for test server (5432 is already allocated)
+        'PORT': '5432',         # custom port (5432 -> 5435) for test server (5432 is already allocated)
     }
 }
 

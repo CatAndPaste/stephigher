@@ -14,7 +14,7 @@
                 Присоединяйтесь к сообществу, обсуждайте стратегии и делитесь своими достижениями!
             </p>
 
-            <a href="#" class="btn-card btn-card--orange hero-block__btn">
+            <a href="{% url 'blog_list' %}" class="btn-card btn-card--orange hero-block__btn">
                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
                 Узнать больше
             </a>
@@ -45,7 +45,8 @@
                                 {{ post.short_description }}
                             </p>
 
-                            <a href="{% url 'blog_detail' post.slug %}" class="btn-card btn-card--orange hero-block__card-link">
+                            <a href="{% url 'blog_detail' post.slug %}"
+                               class="btn-card btn-card--orange hero-block__card-link">
                                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
                                 Читать подробнее
                             </a>
@@ -53,6 +54,12 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
+    </section>
+
+    <section style="margin-bottom: 60px;">
+        <div class="container">
+            {% include 'ad/main_banner.html' %}
         </div>
     </section>
 
@@ -78,7 +85,8 @@
                                 {{ latest_new.short_description }}
                             </p>
 
-                            <a href="{% url 'news_detail' latest_new.slug %}" class="btn-card btn-card--blue latest-news__card-link">
+                            <a href="{% url 'news_detail' latest_new.slug %}"
+                               class="btn-card btn-card--blue latest-news__card-link">
                                 <img src="{% static 'images/Frame (2)-blue.svg' %}" alt="">
                                 Читать подробнее
                             </a>
@@ -127,7 +135,8 @@
                                 {{ popular_post.short_description }}
                             </p>
 
-                            <a href="{% url 'blog_detail' popular_post.slug %}" class="btn-card btn-card--orange hero-block__card-link">
+                            <a href="{% url 'blog_detail' popular_post.slug %}"
+                               class="btn-card btn-card--orange hero-block__card-link">
                                 <img src="{% static 'images/Frame (1).svg' %}" alt="">
                                 Читать подробнее
                             </a>

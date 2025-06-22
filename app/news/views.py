@@ -25,9 +25,9 @@ class NewsListView(SeoContextMixin, ListView):
     paginate_by = 5
 
     # SEO:
-    seo_title = 'StepHigher – Новости'
-    seo_description = 'Актуальные новости по Raft на StepHigher'
-    seo_keywords = 'новости, StepHigher, Raft'
+    seo_title = 'RaftLab – Новости'
+    seo_description = 'Актуальные новости по Raft на RaftLab'
+    seo_keywords = 'новости, StepHigher, RaftLab, Raft'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -89,9 +89,9 @@ class NewsDetailView(SeoContextMixin, DetailView):
     context_object_name = 'post'
     slug_url_kwarg = 'slug'
 
-    seo_title = 'Новости — StepHigher'
-    seo_description = 'Актуальные новости по Raft на StepHigher'
-    seo_keywords = 'новости, StepHigher, Raft'
+    seo_title = 'Новости — RaftLab'
+    seo_description = 'Актуальные новости по Raft на RaftLab'
+    seo_keywords = 'новости, StepHigher, RaftLab, Raft'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, JsonResponse, HttpResponseForbidden
+from django.http import Http404, JsonResponse, HttpResponseForbidden, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from django.views.generic import ListView
@@ -26,9 +26,9 @@ class BlogListView(SeoContextMixin, ListView):
     paginate_by = 12
 
     # SEO
-    seo_title = 'StepHigher - Блог'
-    seo_description = 'Читайте популярные статьи и свежие новости на StepHigher'
-    seo_keywords = 'статьи, новости, StepHigher, блог, технологии'
+    seo_title = 'RaftLab - Блог'
+    seo_description = 'Читайте популярные статьи и свежие новости на RaftLab'
+    seo_keywords = 'статьи, новости, StepHigher, RaftLab, блог, технологии'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -90,9 +90,9 @@ class BlogDetailView(SeoContextMixin, DetailView):
     context_object_name = 'post'
     slug_url_kwarg = 'slug'
 
-    seo_title = 'Блог — StepHigher'
-    seo_description = 'Читайте популярные статьи и свежие новости на StepHigher'
-    seo_keywords = 'статьи, новости, StepHigher, блог, технологии'
+    seo_title = 'Блог — RaftLab'
+    seo_description = 'Читайте популярные статьи и свежие новости на RaftLab'
+    seo_keywords = 'статьи, новости, StepHigher, RaftLab, блог, технологии'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -140,10 +140,17 @@ class BlogDetailView(SeoContextMixin, DetailView):
             return render(request, self.template_name, ctx)
 
 
-@login_required
 def toggle_like(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
     user = request.user
+
+    if not user or not user.is_authenticated:
+        login_url = (reverse('login'))
+        if request.headers.get('Hx-Request') == 'true':
+            resp = HttpResponse(status=403)
+            resp['HX-Redirect'] = login_url
+            return resp
+        return redirect(login_url)
 
     if user in post.liked_by.all():
         post.liked_by.remove(user)

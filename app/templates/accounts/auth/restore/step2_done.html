@@ -5,14 +5,14 @@
     <div class="auth-page">
         <div class="auth-left">
             <div class="content-block">
-                <img src="{% static 'images/Frame 4.svg' %}" alt="Logo" class="logo"/>
+                <a href="{% url 'home' %}" class="header__logo-link logo-link"><img src="{% static 'images/logo.png' %}" alt="Logo" class="logo"/></a>
                 <h1>Начните свое <br> путешествие!</h1>
             </div>
         </div>
 
         <div class="auth-right">
             <div class="reset-password-header">
-                <div class="back-link">Назад</div>
+                <a href="{% url 'restore' %}" class="back-link">Назад</a>
 
                 <div class="step-info">
                     <div class="step-count">Шаг 04/04</div>

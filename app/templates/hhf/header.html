@@ -3,7 +3,7 @@
 <header class="header">
     <div class="container header__container">
         <a href="{% url 'home' %}" class="header__logo-link">
-            <img src="{% static 'images/logo.svg' %}" alt="logo" class="header__logo-img">
+            <img src="{% static 'images/logo.png' %}" alt="logo" class="header__logo-img">
         </a>
 
         <nav class="header__menu">
@@ -70,20 +70,20 @@
                 <div class="header__mobile-buttons">
                     {% if user.is_authenticated %}
                         <a href="{% url 'dashboard:user_info' %}" class="header__mobile-btn header__mobile-btn--reg">
-                            <img src="/images/Iconly.svg" alt="">
+                            <img src="images/Iconly.svg" alt="">
                             Личный кабинет
                         </a>
                         <a href="{% url 'logout' %}" class="header__mobile-btn header__mobile-btn--login">
-                            <img src="/images/Iconly (1).svg" alt="">
+                            <img src="images/Iconly (1).svg" alt="">
                             Выйти
                         </a>
                     {% else %}
                         <a href="{% url 'signup' %}" class="header__mobile-btn header__mobile-btn--reg">
-                            <img src="/images/Iconly.svg" alt="">
+                            <img src="images/Iconly.svg" alt="">
                             Зарегистрироваться
                         </a>
                         <a href="{% url 'login' %}" class="header__mobile-btn header__mobile-btn--login">
-                            <img src="/images/Iconly (1).svg" alt="">
+                            <img src="images/Iconly (1).svg" alt="">
                             Войти
                         </a>
                     {% endif %}

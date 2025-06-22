@@ -18,7 +18,8 @@
   font-weight: @font-medium;
   text-decoration: none;
   cursor: pointer;
-
+  white-space: nowrap;
+  overflow: hidden;
   transition: all 0.3s ease;
 
   /* ========== МОДИФИКАТОР ЦВЕТА ========== */
@@ -48,6 +49,7 @@
     background: #FFF;
     padding: 12px 18px;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 
     display: block;
     width: auto;
@@ -98,6 +100,16 @@
   img {
     padding: 0 !important;
   }
+}
+
+.sort-dropdown__item svg {
+  display: inline-block;
+  margin-top: -2px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  fill: currentColor;
 }
 
 @media (min-width: 1024px) {

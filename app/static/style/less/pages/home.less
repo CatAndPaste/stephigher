@@ -186,8 +186,13 @@
 
   &__cards {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     padding-bottom: 10px;
+
+    .popular-articles__card {
+        flex: 0 1 calc((100% - 40px) / 3);
+    }
   }
 
   &__card .card-img {
@@ -197,10 +202,14 @@
   }
 
   // Планшеты — 2 карточки в строку
-  @media (max-width: 1024px) {
+  @media (max-width: 1100px) {
     &__cards {
       .popular-articles__card {
         flex: 0 1 calc((100% - 20px) / 2); // 2 карточки
+      }
+
+      .popular-articles__card:nth-child(3) {
+        flex: 0 0 100%;                    // 3 - на всю ширину
       }
     }
   }
@@ -215,5 +224,21 @@
       }
     }
   }
+}
+
+.ad-banner {
+  width: 100%;
+}
+
+.ad-banner__link {
+  display: block;
+}
+
+.ad-banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
