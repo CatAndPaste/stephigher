@@ -1090,10 +1090,18 @@ body {
   color: #FFFFFF;
   padding: 20px 50px;
 }
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .blog-post-body {
     padding-left: 10px;
     padding-right: 10px;
+  }
+  .blog-post-title {
+    font-size: 48px;
+  }
+}
+@media (max-width: 767px) {
+  .blog-post-title {
+    font-size: 32px;
   }
 }
 .blog-post-body h1 {
